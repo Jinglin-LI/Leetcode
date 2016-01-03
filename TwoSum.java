@@ -6,22 +6,19 @@ Input: numbers={2, 7, 11, 15}, target=9
 Output: index1=1, index2=2
 */
 
-
 public class Solution {
     public int[] twoSum(int[] nums, int target) {
         int[] a = new int[2];
+        Map <Integer, Integer> map = new HashMap <> ();
         for (int i = 0; i < nums.length; i++) {
-            for (int j = i + 1; j < nums.length; j++) {
-                if (nums[i] == target-nums[j]) {
-                    i++;
-                    j++;
- //                 System.out.println("index1=" + i + ", index2=" + j);
-                    a[0] = i;
-                    a[1] = j;
-                    return a;
+            int x = nums[i];
+            if (map.containsKey (target - x)) {
+                a[0] = map.get (target - x) + 1;
+                a[1] = i + 1;
+                return a;
             }
+        map. put(x, i);
         }
+        throw new IllegalArgumentException ("no such two numbers");
     }
-    throw new IllegalArgumentException ("No two sum solution");
-}
 }
