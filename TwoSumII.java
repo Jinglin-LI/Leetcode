@@ -10,7 +10,7 @@ public class Solution {
 			}
 			throw new IllegalArgumentException ("no such two numbers");
 		}
-}
+
 	public int BinarySearch(int[] a, int key, int start) {
 		int left = start;
 		int right = a.length - 1;
@@ -20,7 +20,7 @@ public class Solution {
 				right = middle - 1; 
 			}
 			else if (key > a[middle]) {
-				left > a[middle] + 1;
+				left = a[middle] + 1;
 			}
 			else
 				return middle;
@@ -28,4 +28,4 @@ public class Solution {
 //		throw new IllegalArgumentException ("no such two numbers");
 		return -1;
 	}
-	
+}
