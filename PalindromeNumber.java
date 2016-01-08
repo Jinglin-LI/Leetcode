@@ -9,14 +9,22 @@ public class Solution {
             
         if (x == 0) 
             return true;
-            
-        int sum = 0;
-        int origin = x;
         
+        int base = 1;  
+        
+        while (x / base >= 10) 
+            base = base * 10;
+            
         while (x != 0) {
-            sum = sum * 10 + x % 10;
-            x /= 10;
-        }
-        return sum == origin;
+            if (x % 10 == x / base) {        // compare the last and the first digit
+                x = (x % base) / 10;         // remove the last and the first digit
+                base = base / 100;
+            }
+            
+            else
+                return false;
+            }
+            
+        return true;
     }
 }
