@@ -13,7 +13,7 @@ public class Solution {
                 num = num / 10;
             }
             num = count;
-            addDigits(num);
+ //         addDigits(num);
         }
         return num;
     }
