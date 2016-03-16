@@ -2,4 +2,4 @@
 
 Implement by Java
 
-Step by step, be patience and persistence  :rose:  New year, new start !
+Step by step, patience and persistence  :rose:  New year, new start !
