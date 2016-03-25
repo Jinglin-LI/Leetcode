@@ -12,6 +12,7 @@ return ["255.255.11.135", "255.255.111.35"]. (Order does not matter)
 注意开头如果是0的话要特殊处理，如果开头是0，判断整个串是不是0，不是的话该字符就是非法的。因为001，01都是不对的。
 Reference: http://www.cnblogs.com/springfor/p/3886409.html
 */
+// 将s变成substring，前面i取0到2（即三个数字）。最后一个之后没有‘.’,所以是判断start == 3.
 
 public class Solution {
     public List<String> restoreIpAddresses(String s) {
