@@ -7,7 +7,7 @@ c) Replace a character
 */
 /*
 动态规划。动态数组dp[word1.length+1][word2.length+1], dp[i][j]表示从word1前i个字符转换到word2前j个字符最少的步骤数。
-假设word1现在遍历到字符i，word2遍历到字符j. 以下两种可能性：
+假设word1现在遍历到字符x(index: i)，word2遍历到字符y(index: j). 以下两种可能性：
 1. x==y，那么不用做任何编辑操作，所以dp[i][j] = dp[i-1][j-1]
 2. x != y
    (1) 在word1插入y， 那么dp[i][j] = dp[i][j-1] + 1
