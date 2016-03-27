@@ -23,7 +23,9 @@ All words contain only lowercase alphabetic characters.
                          /   \
                        dot - lot
                         |     |
-                       dog - log - cog
+                       dog - log
+                         \   /
+                          cog
 hit建立的word[]为ait,bit,cit..., hat,hbt, hct..., hia,hib,hic...
 检测word[j]是否有endWord,是则返回res + 1; 检测其是否存在于wordList,是则将其存在q中。
 curCount和nextCount记录q中当前和下一个单词的candidate的数量，为了计数res（即q空了则从一个单词到下一个单词）。
