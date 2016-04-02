@@ -30,8 +30,8 @@ public class Solution {
         }
         for (int i = 1; i <= num.length(); i++) {                       // 搜索可能的拆分情况，1 + 2 + 3 或者12 + 3.
             String curStr = num.substring(0, i);
-            if(curStr.length() > 1 && curStr.charAt(0) == '0')
-                continue;
+            if(curStr.length() > 1 && curStr.charAt(0) == '0')          // 将‘00’的情况排除掉。
+                continue;                                               // return 和 continue都可，return更好
             String rest = num.substring(i);                             // rest作为下一轮递归时候的num.
             long curValue = Long.parseLong(curStr);
             if (str.length() == 0) {
