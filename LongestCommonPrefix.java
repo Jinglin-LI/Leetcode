@@ -2,31 +2,44 @@
 Write a function to find the longest common prefix string amongst an array of strings.
 */
 
-public class Solution {
-    public String longestCommonPrefix(String[] strs) {
-        if (strs.length == 0)
-            return "";
-        if (strs.length == 1)
-            return strs[0];
-        String res = commonPre(strs[0], strs[1]);
-        for (int i = 2; i < strs.length; i++) {
-            res = commonPre(res, strs[i]);
-        }
-        return res;
-    }
-
-    private String commonPre(String s1, String s2) {
-        if (s1 == null || s2 == null)
-            return null;
-        int len = Math.min(s1.length(), s2.length());
-        StringBuilder sb = new StringBuilder();                                // Note the usage of object, or use String s == ""
-        for (int i = 0; i < len; i++) {
-            if (s1.charAt(i) != s2.charAt(i))
-                break;                                                         // Note the prefix
-            else                                                              
-                sb.append(s1.charAt(i));
-        }
-        return sb.toString();
-    }
-    
+public class LongestCommonPrefix {
+	public static void main (String[] args) {
+		String[] s = {"ab", "abc", "a", "abcd"};
+		System.out.println(new LongestCommonPrefix().longestCommonPrefix2(s));
+	}
+	
+	public String longestCommonPrefix(String[] strs) {
+		if (strs == null || strs.length == 0)
+			return "";
+		for (int i = 0; i < strs[0].length(); i++) {
+			char ch = strs[0].charAt(i);
+			for (String s : strs) {
+				if (i == s.length() || s.charAt(i) != ch)
+					return strs[0].substring(0, i);
+			}
+		}
+		return strs[0];								// if String[] strs contains one element
+	}
+	public String longestCommonPrefix2(String[] strs) {
+		if (strs == null || strs.length == 0)
+			return "";
+		int minLength = Integer.MAX_VALUE;
+		String res = "";
+		
+		// find the shortest string
+		for (int i = 0; i < strs.length; i++) {
+			minLength = Math.min(minLength, strs[i].length());
+		}
+		
+		// used the shortest length, add the characters
+		for (int i = 0; i < minLength; i++) {
+			char ch = strs[0].charAt(i);
+			for (String s : strs) {
+				if (ch != s.charAt(i))
+					return res;
+			}
+			res += ch;
+		}
+		return res;
+	}
 }
