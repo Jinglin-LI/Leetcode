@@ -15,7 +15,7 @@ public class Solution {
     int sum = 0;
 	
     while (x != 0) {
-		if (Math.abs(sum) > Integer.MAX_VALUE / 10 || Math.abs(sum) == Integer.MAX_VALUE / 10 && Math.abs(x) % 10 >= 8)
+		if (Math.abs(sum) > Integer.MAX_VALUE / 10)
 			return 0;
         sum = sum * 10 + x % 10;
         x = x / 10;
