@@ -1,6 +1,7 @@
 /*
 Write a function to find the longest common prefix string amongst an array of strings.
 */
+// 此题不管是否假设，所有的单词都会以同一个字母开始。遍历整个字符串数组。
 
 public class LongestCommonPrefix {
 	public static void main (String[] args) {
