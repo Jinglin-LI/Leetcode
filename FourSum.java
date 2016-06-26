@@ -15,11 +15,11 @@ public class Solution {
         List<List<Integer>> res = new ArrayList<>();
         Arrays.sort(nums);
         for (int i = 0; i < nums.length - 3; i++) {
-                                                                                    // Note, there is no if (nums[i] > target) break; ! because of the negative target
+                                                                        // Note, there is no if (nums[i] > target) break; ! because of the negative target
             if (i > 0 && nums[i] == nums[i - 1])
                 continue;
             for (int j = i + 1; j < nums.length - 2; j++) {
-                if (j > i + 1 && nums[j] == nums[j - 1])
+                if (j > i + 1 && nums[j] == nums[j - 1])                // j > i + 1 for the case ({0,0,0,0}, 0)
                     continue;
                 
                 int low = j + 1, high = nums.length - 1;
