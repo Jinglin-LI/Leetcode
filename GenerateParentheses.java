@@ -9,7 +9,7 @@ public class Solution {
         List<String> res = new ArrayList<>();
         if (n <= 0)
             return res;
-        String str = "";
+
         helper(res, n, 1, 0, "(");
         return res;
     }
@@ -19,7 +19,7 @@ public class Solution {
             
         if (leftN < n)
             helper(res, n, leftN + 1, rightN, str + "(");
-        if (leftN > rightN)
+        if (leftN > rightN)                                                             // leftN > rightN
             helper(res, n, leftN, rightN + 1, str + ")");
     }
 }
