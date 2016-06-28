@@ -28,7 +28,7 @@ public class ImplementStrStr {
 			return 0;
 		for (int i = 0; i < haystack.length() - needle.length() + 1; i++) {
 			if (haystack.charAt(i) == needle.charAt(0)) {
-				String sub = haystack.substring(i, needle.length() + i);
+				String sub = haystack.substring(i, needle.length() + i);		// subString
 				if (sub.equals(needle))
 					return i;
 			}
