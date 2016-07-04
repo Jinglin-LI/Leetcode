@@ -13,4 +13,7 @@ public class Solution {
             return true;
         return false;
     }
+    public boolean isPowerOfThree2(int n) {
+        return n > 0 && 1162261467 % n == 0;                    // 1162261467 is 3^19,  3^20 is bigger than 2147483647 
+    }
 }
