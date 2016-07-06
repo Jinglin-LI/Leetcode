@@ -27,5 +27,14 @@ public class Solution {
             }
         }
         return false;
+    
+    public boolean canJump2(int[] nums) {
+        int max = 0;
+		for (int i = 0; i <= max; i++) {                              // i <= max, 这是贪吃蛇的感觉...
+			max = Math.max(max, nums[i] + i);
+			if (i >= nums.length - 1)
+				return true;
+		}
+		return false;
     }
 }
