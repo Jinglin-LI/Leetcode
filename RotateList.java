@@ -14,28 +14,40 @@ return 4->5->1->2->3->NULL.
  * }
  */
  
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode(int x) { val = x; }
+ * }
+ */
 public class Solution {
     public ListNode rotateRight(ListNode head, int k) {
-        if (k == 0 || head == null || head.next == null)
-            return head;
+        ListNode dummyHead = new ListNode(0);
+        if (head == null)
+            return dummyHead.next;
+            
         ListNode p = head;
-        
         int size = 0;
         while (p != null) {
             size++;
             p = p.next;
-        }                                                   // calculate the size of the linkedlist
+        }
+        k %= size;
         
-        p = head;
-        for (int i = 0; i < size - 1; i++) {
-            p = p.next;                                    // Linked the last element to the head, to form circled linkedlist
+        ListNode fast = head, slow = head;
+        while (k > 0) {
+            fast = fast.next;
+            k--;
         }
-        p.next = head;
-        for (int i = 0; i < size - k % size; i++) {
-            p = p.next;
+        while (fast.next != null) {
+            fast = fast.next;
+            slow = slow.next;
         }
-        ListNode dummyHead = p.next;
-        p.next = null;
-        return dummyHead;
+        fast.next = head;
+        dummyHead.next = slow.next;
+        slow.next = null;
+        return dummyHead.next;
     }
 }
