@@ -37,4 +37,22 @@ public class Solution {
             helper(root.right, res);
         }
     }
+    
+    public List<Integer> inorderTraversal2(TreeNode root) {
+		List<Integer> res = new ArrayList<>();
+		if (root == null)
+			return res;
+		Stack<TreeNode> stack = new Stack<>();
+		TreeNode node = root;
+		while (!stack.isEmpty() || node != null) {
+			while (node != null) {
+				stack.push(node);
+				node = node.left;
+			}
+			node = stack.pop();
+			res.add(node.val);
+			node = node.right;
+		}
+		return res;
+	}
 }
