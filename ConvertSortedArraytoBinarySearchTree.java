@@ -25,4 +25,16 @@ public class Solution {
         node.right = sortedArrayToBST(arr, middle + 1, end);
         return node;
     }
+    
+    public TreeNode sortedArrayToBST2(int[] nums) {
+        if (nums == null || nums.length == 0)
+            return null;
+        int mid = nums.length / 2;
+        TreeNode root = new TreeNode(nums[mid]);
+        int[] leftOfNums = Arrays.copyOfRange(nums, 0, mid);
+        int[] rightOfNums = Arrays.copyOfRange(nums, mid + 1, nums.length);
+        root.left = sortedArrayToBST(leftOfNums);
+        root.right = sortedArrayToBST(rightOfNums);
+        return root;
+    }
 }
