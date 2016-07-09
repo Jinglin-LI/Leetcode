@@ -25,4 +25,26 @@ public class Solution {
         for (int i = 0; i < nums.length; i++)
             nums[i] = res[i];
     }
+    
+    public void sortColors2(int[] nums) {
+		if (nums == null || nums.length <= 1)
+			return;
+		int startIndex = 0, endIndex = nums.length - 1;
+		int i = 0;
+		while (i < nums.length) {
+			if (nums[i] == 0 && i != startIndex) {
+				int temp = nums[startIndex];
+				nums[startIndex++] = nums[i];
+				nums[i] = temp;
+			}
+			else if (nums[i] == 2 && i < endIndex) {
+				int temp = nums[i];
+				nums[i] = nums[endIndex];
+				nums[endIndex--] = temp;
+			}
+			else {
+				i++;
+			}
+		}
+	}
 }
