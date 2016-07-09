@@ -41,4 +41,24 @@ public class Solution {
         root.right = helper(slow.next, tail);
         return root;
     }
+    
+    public TreeNode sortedListToBST2(ListNode head) {
+        if (head == null)
+            return null;0
+        ListNode pre = new ListNode(0);
+        pre.next = head;
+        ListNode slow = head, fast = head;
+        while (fast != null && fast.next != null) {
+            fast = fast.next.next;
+            slow = slow.next;
+            pre = pre.next;
+        }
+        if (pre.next == head)                               // 如果head已经进入tree, 后面root.left就不能再加入head.
+            head = null;
+        pre.next = null;
+        TreeNode root = new TreeNode(slow.val);
+        root.left = sortedListToBST(head);
+        root.right = sortedListToBST(slow.next);
+        return root;
+    }
 }
