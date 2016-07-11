@@ -26,26 +26,33 @@ return
  * }
  */
  
-public class Solution {
-    public List<List<Integer>> pathSum(TreeNode root, int sum) {
-        List<List<Integer>> res = new ArrayList<>();
-        if (root == null)
-            return res;
-        Stack<Integer> stack = new Stack<>();
-        DFS(res, stack, root, sum);
-        return res;
-    }
-    private void DFS(List<List<Integer>>res, Stack<Integer> stack, TreeNode node, int sum) {
-        if (node == null)
-            return;
-        stack.push(node.val);
-        if (node.left == null && node.right == null) {
-            if (sum == node.val) {
-                res.add(new ArrayList<Integer> (stack));                          // Note this
-            }
-        }
-        DFS(res, stack, node.left, sum - node.val);
-        DFS(res, stack, node.right, sum - node.val);
-        stack.pop();
-    }
+import java.util.*;
+public class PathSumII {
+	public class TreeNode {
+		int val;
+		TreeNode left;
+		TreeNode right;
+		TreeNode (int x) {
+			val = x;
+		}
+	}
+	public List<List<Integer>> pathSum(TreeNode root, int sum) {
+		List<List<Integer>> res = new ArrayList<>();
+		if (root == null)
+			return res;
+		List<Integer> list = new ArrayList<>();
+		helper(res, list, root, sum);
+		return res;
+	}
+	private void helper(List<List<Integer>> res, List<Integer> list, TreeNode node, int sum) {
+		if (node == null)
+			return;
+		list.add(node.val);
+		if (node.left == null && node.right == null && sum == node.val) 
+			res.add(new ArrayList<>(list));
+		
+		helper(res, list, node.left, sum - node.val);
+		helper(res, list, node.right, sum - node.val);
+		list.remove(list.size() - 1);
+	}
 }
