@@ -40,7 +40,7 @@ public class Solution {
                             int nextY = y + dir[k][1];
                             if (nextX >= 0 && nextX < m && nextY >= 0 && nextY < n) {
                                 if (board[nextX][nextY] == 'O' && !visited[nextX][nextY])
-                                q.add(nextX * n + nextY);
+                                    q.add(nextX * n + nextY);
                                 visited[nextX][nextY] = true;
                             }
                             else
