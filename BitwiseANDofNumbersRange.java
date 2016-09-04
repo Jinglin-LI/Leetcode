@@ -21,7 +21,7 @@ public class Solution {
 		if (m > n)
 			return -1;
 		int i = 0;
-		while (m != n) {
+		while (m != n) {				// 都向右移动1, 直到两者相等。再根据i移动回来。
 			m >>= 1;
 			n >>= 1;
 			i++;
