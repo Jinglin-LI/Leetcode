@@ -7,37 +7,44 @@ Given numerator = 2, denominator = 1, return "2".
 Given numerator = 2, denominator = 3, return "0.(6)".
 */
 
-public class Solution {
-    public String fractionToDecimal(int numerator, int denominator) {
-        if (numerator == 0)
-            return "0";
-        if (denominator == 0)
-            return null;
-            
-        StringBuilder res = new StringBuilder();
-        if (numerator > 0 && denominator < 0 || (numerator < 0 && denominator > 0))
-            res.append("-");
-        Long n = new Long(numerator);                           // convert to long to avoid overflow
-        Long d = new Long(denominator);
-        n = Math.abs(n);
-        d = Math.abs(d);
-        res.append(n / d);
-        if (n % d == 0)
-            return res.toString();
-        res.append(".");
-        HashMap<Long, Integer> hm = new HashMap<>();            // use integer to store the length of res, in order to insert "(".
-        Long r = n % d;
-        while (r > 0) {
-            if (hm.containsKey(r)) {
-                res.insert(hm.get(r), "(");
-                res.append(")");
-                break;
-            }
-            hm.put(r, res.length());
-            r = r * 10;
-            res.append(r / d);
-            r = r % d;
-        }
-        return res.toString();
-    }
+import java.util.*;
+public class FractionToRecurringDecimal {
+	public static void main(String[] args) {
+		System.out.println(new FractionToRecurringDecimal().fractionToDecimal(2, 3));
+	}
+	public String fractionToDecimal(int numerator, int denominator) {
+		if (numerator == 0)
+			return "0";
+		if (denominator == 0)
+			return null;
+		
+		StringBuilder sb = new StringBuilder();
+		if (numerator < 0 && denominator > 0 || numerator > 0 && denominator < 0)
+			sb.append("-");
+		Long n = new Long (numerator);
+		Long d = new Long (denominator);
+		n = Math.abs(n);
+		d = Math.abs(d);
+		
+		sb.append(n / d);
+		if (n % d == 0)
+			return sb.toString();
+		sb.append(".");
+		HashMap<Long, Integer> hm = new HashMap<>();
+		Long remain = n % d;
+		while (remain != 0) {
+			if (hm.containsKey(remain)) {
+				sb.insert(hm.get(remain), "(");
+				sb.append(")");
+				break;
+			}
+			else {
+				hm.put(remain, sb.length());
+				remain *= 10;
+				sb.append(remain / d);
+				remain %= d;
+			}
+		}
+		return sb.toString();
+	}
 }
