@@ -16,4 +16,19 @@ public class Solution {
         }
         return 0;
     }
+    
+    public int rangeBitwiseAND2(int m, int n) {
+		if (m > n)
+			return -1;
+		int i = 0;
+		while (m != n) {
+			m >>= 1;
+			n >>= 1;
+			i++;
+		}
+		return m << i;
+	}
+	public static void main(String[] args) {
+		System.out.println(new BitwiseANDOfNumbersRange().rangeBitwiseAND(5, 7));
+	}
 }
