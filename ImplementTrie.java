@@ -4,7 +4,7 @@ Note:
 You may assume that all inputs are consist of lowercase letters a-z.
 */
 // design. Recursive. string 中从第二个char开始都是前一个Char的孩子(第一个字母存在TrieNode[] 中), 成为一种linked(可以有很多的连接线，连成一个词)。
-// 每一个TrieNode有孩子和标记（元素长度为零并且插入则为真）。
+// 每一个TrieNode有孩子和标记（某个node没有孩子的时候为true）。考虑成一个node有26个孩子。
 
 class TrieNode {
     TrieNode[] children;
