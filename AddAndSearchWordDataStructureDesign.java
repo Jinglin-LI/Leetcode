@@ -44,18 +44,18 @@ public class AddAndSearchWordDataStructureDesign {
 			char c = word.charAt(i);
 			if (c == '.') {
 				for (TrieNode x : node.children) {
-					if (x != null && search(x, word.substring(i + 1)))
+					if (x != null && search(x, word.substring(i + 1)))		// 判断null很重要，因为前面没写
 						return true;
 				}
-				return false;
+				return false;					// 为‘.’的情况要判断FALSE的时候
 			}
 			else {
-				node = node.children[c - 'a'];                  // 也记得要将node指向children
+				node = node.children[c - 'a'];                  // 很重要，记得要将node指向children
 				if (node == null) {
 					return false;
 				}
 			}
 		}
-		return node.flag;
+		return node.flag;						// 判断trie树里面结束
 	}
 }
