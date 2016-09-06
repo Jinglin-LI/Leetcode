@@ -47,7 +47,7 @@ public class Solution {
 		int[] preNums = new int[numCourses];
 		for (int i = 0; i < prerequisites.length; i++) {
 			posts.get(prerequisites[i][1]).add(prerequisites[i][0]);
-			preNums[prerequisites[i][0]]++;
+			preNums[prerequisites[i][0]]++;			// 入度，有多少节点入这个节点
 		}
 		Queue<Integer> q = new LinkedList<>();
 		for (int i = 0; i < numCourses; i++) {
