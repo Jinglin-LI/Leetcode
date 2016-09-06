@@ -41,4 +41,36 @@ public class Solution {
     	visited[cur] = 2;
     	return true;
     }
+    
+    
+    public int[] findOrder2(int numCourses, int[][] prerequisites) {
+		List<List<Integer>> posts = new ArrayList<>();
+		for (int i = 0; i < numCourses; i++) {
+			posts.add(new ArrayList<>());
+		}
+		int[] preNums = new int[numCourses];                // int[] inDegree
+		for (int i = 0; i < prerequisites.length; i++) {
+			posts.get(prerequisites[i][1]).add(prerequisites[i][0]);
+			preNums[prerequisites[i][0]]++;
+		}
+		Queue<Integer> q = new LinkedList<>();
+		for (int i = 0; i < numCourses; i++) {
+			if (preNums[i] == 0)
+				q.add(i);
+		}
+		int[] res = new int[numCourses];
+		int count = 0;
+		while (!q.isEmpty()) {
+			int x = q.poll();
+			res[count] = x;
+			for (int i : posts.get(x)) {
+				if (--preNums[i] == 0)
+					q.add(i);
+			}
+			count++;
+		}
+		if (count != numCourses)
+			return new int[0];
+		return res;
+	}
 }
