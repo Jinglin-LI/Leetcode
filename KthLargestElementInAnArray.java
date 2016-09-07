@@ -5,6 +5,8 @@ Given [3,2,1,5,6,4] and k = 2, return 5.
 Note: 
 You may assume k is always valid, 1 ≤ k ≤ array's length.
 */
+// https://discuss.leetcode.com/topic/21208/java-o-n-solution-using-selection-algorithm
+// https://discuss.leetcode.com/topic/25001/java-concise-quickselect
 
 public class Solution {
     public int findKthLargest(int[] nums, int k) {
@@ -40,7 +42,7 @@ public class Solution2 {
 				right--;
 			}
 		}
-		if (right > start && k <= right)                    // QuickSort 里面比较的是（right > start）.
+		if (right > start && k <= right)                    	// QuickSort 里面比较的是（right > start）.
 			return quickSelect2(nums, start, right, k);
 		if (left < end && k >= left)
 			return quickSelect2(nums, left, end, k);
