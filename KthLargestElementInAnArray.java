@@ -20,3 +20,35 @@ public class Solution {
         return q.peek();
     }
 }
+
+public class Solution2 {
+    public int findKthLargest(int[] nums, int k) {
+		return quickSelect2(nums, 0, nums.length - 1, k - 1);               // 第0个index里面存的最大的数儿。
+	}
+	private int quickSelect2(int[] nums, int start, int end, int k) {
+		int left = start;
+		int right = end;
+		int pivot = nums[(left + right) / 2];
+		while (left <= right) {
+			while (nums[left] > pivot)
+				left++;
+			while (nums[right] < pivot)
+				right--;
+			if (left <= right) {
+				swap(nums, left, right);
+				left++;
+				right--;
+			}
+		}
+		if (right > start && k <= right)                    // QuickSort 里面比较的是（right > start）.
+			return quickSelect2(nums, start, right, k);
+		if (left < end && k >= left)
+			return quickSelect2(nums, left, end, k);
+		return nums[k];
+	}
+	private void swap(int[] nums, int a, int b) {
+		int temp = nums[a];
+		nums[a] = nums[b];
+		nums[b] = temp;
+	}
+}
