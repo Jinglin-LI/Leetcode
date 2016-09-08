@@ -5,28 +5,27 @@ For example, given [1,2,3,4], return [24,12,8,6].
 */
 // consider the 0. the res[i] return other elements' product except 0.
 
+/*
+用int[] res 正向与反向两次记录除本身的乘积。第一次正向记录nums[i]前面的数的乘积，第二次反向记录nums[i]后面的数的乘积 * res[i]。
+例如            1   2   3   4   5
+    正向        1   1   2   6   24
+    反向      120  60  40  30
+或者，利用两个array记录，再乘起来。
+*/
+
 public class Solution {
     public int[] productExceptSelf(int[] nums) {
-        int[] res = new int[nums.length];
-        int totalProduct = 1;
-        for (int i = 0; i < nums.length; i++) {
-            if (nums[i] == 0) {
-                totalProduct = 1;
-                int index = i;
-                for (int j = 0; j < nums.length; j++) {
-                    if (j != index) {
-                        totalProduct = totalProduct * nums[j];
-                    }
-                }
-                res[index] = totalProduct;
-                return res;
-            }
-            totalProduct = totalProduct * nums[i];
-        }
-        for (int i = 0; i < nums.length; i++) {
-            if (nums[i] != 0)
-                res[i] = totalProduct / nums[i];
-        }
-        return res;
+        if (nums == null || nums.length < 1)
+			return nums;
+		int[] res = new int[nums.length];
+		res[0] = 1;
+		for (int i = 1; i < nums.length; i++)
+			res[i] = res[i - 1] * nums[i - 1];
+		int right = 1;                                      // 用right记录nums[i]后面的数的乘积。
+		for (int i = nums.length - 1; i >= 0; i--) {
+			res[i] *= right;
+			right *= nums[i];
+		}
+		return res;
     }
 }
