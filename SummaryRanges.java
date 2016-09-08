@@ -45,4 +45,28 @@ public class Solution {
             
         return res;
     }
+    
+    // The second method
+    public List<String> summaryRanges2(int[] nums) {
+		List<String> res = new ArrayList<>();
+		if (nums == null || nums.length == 0)
+			return res;
+		int i = 0;
+		int j = 0;
+		while (j < nums.length) {
+			if (j < nums.length - 1 && nums[j] + 1 == nums[j + 1])
+				j++;
+			else {
+				if (i == j)
+					res.add(nums[i] + "");
+				else {
+					String str = nums[i] + "->" + nums[j];
+					res.add(str);
+				}
+				j++;
+				i = j;
+			}
+		}
+		return res;
+	}
 }
