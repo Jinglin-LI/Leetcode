@@ -10,7 +10,7 @@ For example, given [1,2,3,4], return [24,12,8,6].
 例如            1   2   3   4   5
     正向        1   1   2   6   24
     反向      120  60  40  30
-或者，利用两个array记录，再乘起来。
+或者，利用两个array记录，再乘起来。productExceptSelf2中利用两个array，更容易理解一些。
 */
 
 public class Solution {
@@ -28,4 +28,22 @@ public class Solution {
 		}
 		return res;
     }
+    
+    public int[] productExceptSelf2(int[] nums) {
+		int len = nums.length;
+		int[] product1 = new int[len];
+		int[] product2 = new int[len];
+		
+		product1[0] = 1;
+		for (int i = 1; i < len; i++)
+			product1[i] = product1[i - 1] * nums[i - 1];
+		
+		product2[len - 1] = 1;
+		for (int i = len - 2; i >= 0; i--)
+			product2[i] = product2[i + 1] * nums[i + 1];
+		for (int i = 0; i < len; i++) {
+			product1[i] *= product2[i];
+		}
+		return product1;
+	}
 }
