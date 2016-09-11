@@ -4,6 +4,7 @@ Hint:
 Expected runtime complexity is in O(log n) and the input is sorted.
 */
 // https://discuss.leetcode.com/topic/52656/most-clear-explanation-with-java-solution
+// 为了避免corner, len初始化为长度而不是长度-1. 
 // {0, 2, 3, 7}返回2.
 
 public class Solution {
