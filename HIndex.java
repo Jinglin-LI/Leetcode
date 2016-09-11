@@ -8,6 +8,7 @@ An easy approach is to sort the array first.
 What are the possible values of h-index?
 A faster approach is to use extra space.
 */
+// {0,2,5,7}返回2
 
 public class Solution {
     public int hIndex(int[] citations) {
