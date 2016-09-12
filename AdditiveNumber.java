@@ -46,7 +46,7 @@ public class Solution {
 		return false;
 	}
     private boolean isValid(String s1, String s2, String remain) {
-        if (remain == null || remain.length() == 0)
+        if (remain == null || remain.length() == 0)					      // 注意第三个数为空的时候为结束。
             return true;
         if (s1.charAt(0) == '0' && s1.length() > 1)                                           // note the s1.length() > 1
             return false;
