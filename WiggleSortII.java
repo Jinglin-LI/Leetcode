@@ -12,6 +12,7 @@ Follow Up:
 Can you do it in O(n) time and/or in-place with O(1) extra space?
 */
 // 排序。temp[]数组0、2、4位为nums[]前半部分，1、3、5位为后半部分。
+// 此题要注意duplicate。比如[4,5,5,6], 所以要用两个指针从后向前，避免比较中有相等的情况。
 
 public class Solution {
     public void wiggleSort(int[] nums) {
