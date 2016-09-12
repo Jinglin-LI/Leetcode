@@ -14,6 +14,8 @@ Given a string containing only digits '0'-'9', write a function to determine if 
 */
 // substring(0, i + 1) is first number, substring(i + 1, j + 1) is second number,substring(j + 1) is remaining.
 // i 自增到中间，j自增到中间。num.length() - Math.max(i + 1, j - i)中，i + 1是i走到中间的情况；j - i 是j走到中间的情形。
+// isAdditiveNumber2中，更加容易理解。num.length() - j也就是最后一个数长度要大于第二个数，最后一个数长度大于第一个数。
+// 否则，否则111, 分为1， 11,。第三个数为空也会成为true. 此题注意条件。
 
 public class Solution {
     public boolean isAdditiveNumber(String num) {
@@ -21,13 +23,28 @@ public class Solution {
             return false;
         
         for (int i = 0; i < (num.length() - 1) / 2; i++) {
-            for (int j = i + 1; j < num.length() - Math.max(i + 1, j - i); j++) {
+            for (int j = i + 1; j < num.length() - Math.max(i + 1, j - i); j++) {               // 注意条件
                 if (isValid(num.substring(0, i + 1), num.substring(i + 1, j + 1), num.substring(j + 1)))
                     return true;
             }
         }
         return false;
     }
+    
+    public boolean isAdditiveNumber2(String num) {
+		if (num == null || num.length() <= 2)
+			return false;
+		for (int i = 0; i < (num.length() - 1) / 2; i++) {
+			for (int j = i + 1; num.length() - j >= j - i && num.length() - j >= i; j++) {      // 注意条件
+				String str1 = num.substring(0, i + 1);
+				String str2 = num.substring(i + 1, j + 1);
+				String str3 = num.substring(j + 1);
+				if (isValid(str1, str2, str3))
+					return true;
+			}
+		}
+		return false;
+	}
     private boolean isValid(String s1, String s2, String remain) {
         if (remain == null || remain.length() == 0)
             return true;
