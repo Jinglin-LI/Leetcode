@@ -52,7 +52,7 @@ public class Solution {
             return false;
         if (s2.charAt(0) == '0' && s2.length() > 1)
             return false;
-        String preSum = String.valueOf(Long.parseLong(s1) + Long.parseLong(s2));
+        String preSum = String.valueOf(Long.parseLong(s1) + Long.parseLong(s2));	      // String转为long, 再转为String
         if (!remain.startsWith(preSum))                                                       // note the string.startsWith(String s)
             return false;
         return isValid(s2, preSum, remain.substring(preSum.length()));                        // recursive
