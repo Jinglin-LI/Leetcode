@@ -41,6 +41,13 @@ int partB = k - partA;
    参考：http://blog.csdn.net/linhuanmars/article/details/19905515
          http://www.cnblogs.com/springfor/p/3861890.html
 */
+/*
+图可以参考 http://www.programcreek.com/2012/12/leetcode-median-of-two-sorted-arrays-java/
+将两个arrays都取k/2和k/2个数，a[k / 2] < b[k / 2]时，a的前k/2个就不要了，从k/2 + 1处递归。
+分份儿：partA = Math.min(k / 2, a.length). partB = k - partA. 为了保证分份儿正确，a长度应小于b长度。否则b[partB]会越界.
+*/
+
+
 
 public class Solution {
     public double findMedianSortedArrays(int[] nums1, int[] nums2) {
