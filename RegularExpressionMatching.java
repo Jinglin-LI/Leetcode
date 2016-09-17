@@ -26,25 +26,31 @@ isMatch("aab", "c*a*b") → true
  * 那么此时看从s[i]开始的子串，假设s[i],s[i+1],...s[i+k]都等于p[j]那么意味着这些都有可能是合适的匹配，
  * 那么递归对于剩下的(i,j+2),(i+1,j+2),...,(i+k,j+2)都要尝试（j+2是因为跳过当前和下一个'*'字符）。 
  */
-
+ // 此题主要在于判断j + 1而不是j. 由于递归，前面要加限制条件。由于是指针，则限制条件为越界和长度的限定。
+ // 可参考http://blog.welkinlan.com/2015/04/26/regular-expression-matching-wildcard-matching-leetcode-java-dp/的DP图。和http://www.cnblogs.com/jdflyfly/p/3810681.html的三种解法。
+ // 此题的题目是，"*"代表“*”之前的那个字符，0次或数次。
+ // http://www.jianshu.com/p/c09c4a3fc14a 讲述了DP. 然而不太理解为什么初始化时候空字符串能匹配X*。 
+ 
 public class Solution {
     public boolean isMatch(String s, String p) {
-        return helper(s, p, 0, 0);
-    }
-    private boolean helper(String s, String p, int i, int j) {
-        if (j == p.length())
-            return i == s.length();
-        if (j == p.length() - 1 || p.charAt(j + 1) != '*') {                                          // p.charAt(j+1)!='*'
-            if (i == s.length() || s.charAt(i) != p.charAt(j) && p.charAt(j) != '.')
-                return false;
-            else
-                return helper(s, p, i + 1, j + 1);
-        }
-        while (i < s.length() && (p.charAt(j) == '.' || s.charAt(i) == p.charAt(j))) {                // p.charAt(j+1)=='*'
-            if (helper(s, p, i, j + 2))
-                return true;
-            i++;
-        }
-        return helper(s, p, i, j + 2);
-    }
+		return helper(s, p, 0, 0);
+	}
+	private boolean helper(String s, String p, int i, int j) {
+		if (j == p.length())
+			return i == s.length();
+		if (j == p.length() - 1 || p.charAt(j + 1) != '*') {                                // p.charAt(j + 1) != '*'
+			if (i == s.length() || s.charAt(i) != p.charAt(j) && p.charAt(j) != '.')
+				return false;
+			else
+				return helper(s, p, i + 1, j + 1);
+		}
+		else {                                                                             // p.charAt(j + 1) == '*'
+			while (i < s.length() && (p.charAt(j) == '.' || s.charAt(i) == p.charAt(j))) {
+				if (helper(s, p, i, j + 2))
+					return true;                                                            // 有true则为true.
+				i++;                                                                        // 例如“aa”与“a*”, i加到2
+			}
+			return helper(s, p, i, j + 2);                                                  // 找到i与j + 2相同的，继续递归。实际上则是继续递归，从新的valid的地方递归。重复了一次为了不越界。
+		}
+	}
 }
