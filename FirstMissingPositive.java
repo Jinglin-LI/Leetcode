@@ -5,7 +5,8 @@ Given [1,2,0] return 3,
 and [3,4,-1,1] return 2.
 Your algorithm should run in O(n) time and uses constant space.
 */
-// 在nums[1]中存1， nums[2]中存2...比nums长度大的、负数的都无视。nums[i] != nums[nums[i] - 1] 是防止本来那个地方有对的数，造成无限循环。
+// O(N). 即遍历nums的同时，将1与nums[0]交换，2与nums[1]交换，等。比nums长度大的、负数的都无视（可留在当前index中等待之后for loop）
+// 在nums[0]中存1， nums[1]中存2...比nums长度大的、负数的都无视。nums[i] != nums[nums[i] - 1] 是防止本来那个地方有对的数，造成无限循环。
 
 public class Solution {
     public int firstMissingPositive(int[] nums) {
