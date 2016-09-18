@@ -17,7 +17,44 @@ This is because the new interval [4,9] overlaps with [3,5],[6,7],[8,10].
  *     Interval(int s, int e) { start = s; end = e; }
  * }
  */
- 
+// 思维要转换一下：Intervals中每一个元素与newInterval进行比较。
+// 加入新的list中。Intervals中每一个元素的end和新元素的start比较，小的话，每一个元素加入新list。
+// 同理，每一个元素start和新元素end比较，大的话，每一个元素加入新的list.
+// 其他情况就要merge。每一次旧的元素入list,更改newInterval. 
+
+import java.util.*;
+public class InsertInterval {
+	public class Interval {
+		int start;
+		int end;
+		Interval() {
+			start = 0;
+			end = 0;
+		}
+		Interval(int s, int e) {
+			start = s;
+			end = e;
+		}
+	}
+	public List<Interval> insert(List<Interval> intervals, Interval newInterval) {
+		List<Interval> res = new ArrayList<>();
+		for (Interval each : intervals) {
+			if (each.end < newInterval.start)
+				res.add(each);
+			else if (each.start > newInterval.end) {
+				res.add(newInterval);
+				newInterval = each;
+			}
+			else if (each.end >= newInterval.start || each.start <= newInterval.end) {
+				newInterval = new Interval(Math.min(each.start, newInterval.start), Math.max(newInterval.end, each.end));
+			}
+		}
+		res.add(newInterval);
+		return res;
+	}
+}
+
+
 public class Solution {
     public List<Interval> insert(List<Interval> intervals, Interval newInterval) {
         List<Interval> res = new ArrayList<>();
