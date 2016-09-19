@@ -14,6 +14,11 @@ How do you define "distinct" subsequence? Clearly, the 'distinct' here mean diff
 not the final string of subsequence. Otherwise, the result is always 0 or 1. -- from Jason's comment
 */
 // 此题的题目要求是，S的subsequence，跟T是一样的。不同的subsequence指的是操作的不同，不是最终得到的string的不同。
+/*
+公式总结：
+S[j-1]!= T[i-1]：DP[i][j] = DP[i][j-1]
+S[j-1]==T[i-1]：DP[i][j] = DP[i-1][j-1] + DP[i][j-1]
+*/
 
 public class Solution {
     public int numDistinct(String s, String t) {
