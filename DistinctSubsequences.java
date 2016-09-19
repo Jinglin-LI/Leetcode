@@ -7,6 +7,13 @@ S = "rabbbit", T = "rabbit"
 Return 3.
 */
 // DP. 记载s的i个字符和t的j个字符相符的子串的数量，可画图。Reference: http://blog.csdn.net/abcbc/article/details/8978146 (其颠倒了i,j)。
+/*
+The problem itself is very difficult to understand. It can be stated like this:
+Give a sequence S and T, how many distinct sub sequences from S equals to T?
+How do you define "distinct" subsequence? Clearly, the 'distinct' here mean different operation combination, 
+not the final string of subsequence. Otherwise, the result is always 0 or 1. -- from Jason's comment
+*/
+// 此题的题目要求是，S的subsequence，跟T是一样的。不同的subsequence指的是操作的不同，不是最终得到的string的不同。
 
 public class Solution {
     public int numDistinct(String s, String t) {
