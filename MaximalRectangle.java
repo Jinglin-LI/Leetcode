@@ -14,9 +14,11 @@ import java.util.*;
 public class MaximalRectangle {
 	public int maximalRectangle(char[][] matrix) {
 		int res = 0;
+		if (matrix.length == 0 || matrix[0].length == 0)
+			return res;
 		int m = matrix.length;
 		int n = matrix[0].length;
-		int[][] height = new int[m][n + 1];                       // add dummy 0
+		int[][] height = new int[m][n + 1];                      // add dummy 0
 		for (int i = 0; i < m; i++) {                             // construct histogram for each i. 
 			for (int j = 0; j < n; j++) {
 				if (matrix[i][j] == '0')
