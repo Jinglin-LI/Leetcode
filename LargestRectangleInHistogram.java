@@ -10,6 +10,7 @@ return 10.
 */
 // 图与解释参考 http://www.cnblogs.com/lichen782/p/leetcode_Largest_Rectangle_in_Histogram.html
 // stack中存储升序序列的index. 当指针i指向的数小于peek()时，逐步取大，计算前面高于h[i]的stack中的面积。
+// 用dummy = 0为histogram最后最小的一个假象值。
 
 import java.util.*;
 public class LargestRectangleInHistogram {
@@ -20,7 +21,7 @@ public class LargestRectangleInHistogram {
 	public int largestRectangleArea(int[] heights) {
 		Stack<Integer> stack = new Stack<>();
 		int res = 0;
-		int[] h = Arrays.copyOf(heights, heights.length + 1);
+		int[] h = Arrays.copyOf(heights, heights.length + 1);		// 前面copy进h[], 后面加一个0；
 		int i = 0;
 		while (i < h.length) {
 			if (stack.isEmpty() || h[stack.peek()] <= h[i]) {
