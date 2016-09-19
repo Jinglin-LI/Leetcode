@@ -22,15 +22,15 @@ public class Solution {
             return false;
         boolean[][] dp = new boolean[len1 + 1][len2 + 1];
         dp[0][0] = true;
-        for (int i = 1; i <= len1 && s1.charAt(i - 1) == s3.charAt(i - 1); i++)
+        for (int i = 1; i <= len1 && s1.charAt(i - 1) == s3.charAt(i - 1); i++)     // 此限制条件值得注意。要连续相等。
             dp[i][0] = true;
         for (int j = 1; j <= len2 && s2.charAt(j - 1) == s3.charAt(j - 1); j++)
             dp[0][j] = true;
         for (int i = 1; i <= len1; i++) {
             for (int j = 1; j <= len2; j++) {
-                if (s3.charAt(i + j - 1) == s1.charAt(i - 1) && dp[i - 1][j])
+                if (s3.charAt(i + j - 1) == s1.charAt(i - 1) && dp[i - 1][j])       // 此限制条件值得注意。要确定dp[i][j]真假，要判断左边和上边才好。。
                     dp[i][j] = true;
-                if (s3.charAt(i + j - 1) == s2.charAt(j - 1) && dp[i][j - 1])
+                if (s3.charAt(i + j - 1) == s2.charAt(j - 1) && dp[i][j - 1])       // 此限制条件值得注意。
                     dp[i][j] = true;
             }
         }
