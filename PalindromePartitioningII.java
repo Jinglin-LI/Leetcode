@@ -17,15 +17,16 @@ public class PalindromePartitioningII {
 		if (s == null || s.length() <= 1)
 			return 0;
 		int len = s.length();
-		int[][] palindrome = new int[len][len];                           // 回文序列的话，值为1. 
+		boolean[][] palindrome = new boolean[len][len];                           // 回文序列的话，值为true. 
 		int[] dp = new int[len + 1];
+		for (int i = 0; i < len; i++)
+			dp[i] = len - i;					  // 初始化。最小为1. (最后一个可为0)
 		
 		for (int i = len - 1; i >= 0; i--) {
-			dp[i] = len - i;                                                // 初始化。最小为1. 
 			for (int j = i; j < len; j++) {
 				if (s.charAt(i) == s.charAt(j)) {
-					if (j - i < 2 || palindrome[i + 1][j - 1] == 1) {           // j与i为相同，或者只有一个字符（j - i == 1）.
-						palindrome[i][j] = 1;
+					if (j - i < 2 || palindrome[i + 1][j - 1] == true) {           // j与i为相同，或者只有一个字符（j - i == 1）.
+						palindrome[i][j] = true;
 						dp[i] = Math.min(dp[i], dp[j + 1] + 1);
 					}
 				}
