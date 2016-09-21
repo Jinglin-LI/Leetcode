@@ -8,7 +8,8 @@ Examples:
 ")(" -> [""]
 */
 /*
-BFS. 利用queue和for循环，将queue.poll出的第一个元素每一次都减去一个括号放入queue的队尾。
+BFS. 利用queue和for循环，利用Queue<String> 存每一个去掉一个符号string(不一定valid). 利用hashset存valid的结果。
+将queue.poll出的第一个元素每一次都减去一个括号放入queue的队尾。
 用size()来控制相同长度的字符串“一拨儿”被处理。进而第一次得到结果（get == true）之后，字符串长度不再缩短。
 用哈希表来存储删除括号的字符串，isValid来判断是否括号是合法的。
 例如：()) -> )) -> () break.字符串长的时候想象成树~
