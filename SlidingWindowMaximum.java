@@ -33,6 +33,7 @@ LinkedList按照其index代表的数降序排列
 大于窗口，即deque最左边存储的index == i - k时，删掉最前面的。
 Given nums = [1,3,-1,-3,5,3,6,7], and k = 3。
 */ 
+// 也可利用PQ做。PQ存储k个升序排列。每次窗口移动，移除窗口第一个元素。
 
 public class Solution {
     public int[] maxSlidingWindow(int[] nums, int k) {
@@ -51,4 +52,18 @@ public class Solution {
         }
         return res;
     }
+    public int[] maxSlidingWindow2(int[] nums, int k) {
+		if (nums == null || nums.length == 0)
+			return new int[0];
+		PriorityQueue<Integer> pq = new PriorityQueue<>(Collections.reverseOrder());
+		int[] res = new int[nums.length + 1 - k];
+		for (int i = 0; i < nums.length; i++) {
+			if (i >= k)
+				pq.remove(nums[i - k]);
+			pq.add(nums[i]);
+			if (i + 1 >= k)
+				res[i + 1 - k] = pq.peek();
+		}
+		return res;
+	}
 }
