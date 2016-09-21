@@ -33,6 +33,16 @@ global[i][j]就是我们所求的前i天最多进行k次交易的最大收益，
 如果第i天没有交易（卖出），那么global[i][j]=global[i-1][j]；如果第i天有交易（卖出），那么global[i][j]=local[i][j]。
 */
 
+/*
+http://blog.csdn.net/linhuanmars/article/details/23236995
+此解释更清晰一些。规定local[][]是到达i天必须卖出的局部。
+global[i][j]容易推导：global[i - 1][j]与local[i][j]最大。为第i-1天卖出和第i天卖出最大值。
+local[i][j] 为global[i - 1][j - 1] + (diff > 0? diff : 0)与local[i - 1][j] + diff最大(因为local必须最后一天卖)。
+local的解释是，剩一次交易留给第i天。如果diff > 0 了就变成第i天卖出，如果diff < 0 则少一次交易(因为是全局)。
+第二个元素是，交易次数不会增加。但是local必须最后一天卖，不管diff正负，都要加上。
+*/
+
+
 public class Solution {
     public int maxProfit(int k, int[] prices) {
         if (prices.length < 2)
