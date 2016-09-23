@@ -8,7 +8,7 @@ Return "abc"
 Given "cbacdcbc"
 Return "acdb"
 */
-// Note the sequence
+// Note the sequence    窗口题。遍历string，每个元素加入到sb中，遇到比sb最后一个元素小、并且这个元素有重复的话，删掉这个元素。
 
 public class Solution {
     public String removeDuplicateLetters(String s) {
