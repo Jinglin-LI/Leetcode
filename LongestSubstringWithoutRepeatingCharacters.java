@@ -1,6 +1,10 @@
+// 此题注意不光是字母，也有各种符号。ascii 256
+
+
 /*
 Given a string, find the length of the longest substring without repeating characters. For example, the longest substring without repeating letters for "abcabcbb" is "abc", which the length is 3. For "bbbbb" the longest substring is "b", with the length of 1.
 */
+// 多种解法。int[char] = position的最好。
 
 import java.util.*;
 public class LongestSubstringWithoutRepeatingCharacters {
@@ -97,4 +101,40 @@ public class LongestSubstringWithoutRepeatingCharacters {
 		}
 		return Math.max(res, s.length() - start);
 	}
+	public class Solution {
+	public static void main(String[] args) {
+		System.out.println(new Solution().lengthOfLongestSubstring("abcabcbb"));
+	}
+	public int lengthOfLongestSubstring(String s) {
+        int res = 0;
+        if (s == null || s.length() == 0)
+            return res;
+        int[]visited = new int[256];					// 因为有各种其他符号，要256个。
+        int i = 0;
+        int j = 0;
+        while (j < s.length()) {
+            if (visited[s.charAt(j)] == 0) {				// 一定要注意，s.charAt(j)无需减去a或者0. 
+                visited[s.charAt(j)]++;
+            }
+            else {
+                res = Math.max(res, j - i);
+                while (i < j) {
+                    visited[s.charAt(i)]--;
+                    if (s.charAt(i) == s.charAt(j)) {
+                        i++;
+                        visited[s.charAt(j)]++;
+                        break;
+                    }
+                    i++;
+                }
+            }
+            j++;
+        }
+        res = Math.max(res, j - i);
+        return res;
+    }
+	
 }
+}
+
+
