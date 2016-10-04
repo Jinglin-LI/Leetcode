@@ -81,3 +81,33 @@ public class Solution {
             return A[aStart + partA - 1];
     }
 }
+
+// 可能这个版本更好理解。
+public double findMedianSortedArrays2(int[] nums1, int[] nums2) {
+		int m = nums1.length;
+		int n = nums2.length;
+		if ((m + n) % 2 == 1)
+			return (double)helper(nums1, nums2, 0, m, 0, n, (m + n) / 2 + 1);
+		else {
+			int a = helper(nums1, nums2, 0, m, 0, n, (m + n) / 2);
+			int b = helper(nums1, nums2, 0, m, 0, n, (m + n) / 2 + 1);
+			return (double)(a + b) / 2;
+		}
+	}
+	private int helper(int[] nums1, int[] nums2, int start1, int end1, int start2, int end2, int k) {        // 第k个，而不是坐标
+		int m = end1 - start1;                    // 长度，而不是坐标
+		int n = end2 - start2;
+		if (m > n)
+			return helper(nums2, nums1, start2, end2, start1, end1, k);
+		if (m <= 0)                               // 当nums1中不再取值。
+			return nums2[k - 1]; 
+		if (k == 1)
+			return Math.min(nums1[start1], nums2[start2]);
+		int part1 = Math.min(k / 2, m);
+		int part2 = k - part1;
+		if (nums1[start1 + part1 - 1] < nums2[start2 + part2 - 1])           // 注意，第k个，所以要坐标减一。
+			return helper(nums1, nums2, start1 + part1, end1, start2, end2, k - part1);
+		if (nums1[start1 + part1 - 1] > nums2[start2 + part2 - 1])
+			return helper(nums1, nums2, start1, end1, start2 + part2, end2, k - part2);
+		return nums1[start1 + part1 - 1];
+	}
