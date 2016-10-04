@@ -31,6 +31,11 @@ isMatch("aab", "c*a*b") → true
  // 此题的题目是，"*"代表“*”之前的那个字符，0次或数次。
  // http://www.jianshu.com/p/c09c4a3fc14a 讲述了DP. 然而不太理解为什么初始化时候空字符串能匹配X*。 
  
+/***
+* 为什么isMatch("aab", "c*a*b") → true? 	c*代表0个c. 在计算理论课程中有提到。
+http://articles.leetcode.com/regular-expression-matching
+*/
+
 public class Solution {
     public boolean isMatch(String s, String p) {
 		return helper(s, p, 0, 0);
