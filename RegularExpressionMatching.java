@@ -51,11 +51,11 @@ public class Solution {
 		}
 		else {                                                                             // p.charAt(j + 1) == '*'
 			while (i < s.length() && (p.charAt(j) == '.' || s.charAt(i) == p.charAt(j))) {
-				if (helper(s, p, i, j + 2))
-					return true;                                                            // 有true则为true.
-				i++;                                                                        // 例如“aa”与“a*”, i加到2
+				if (helper(s, p, i, j + 2))		 	// 例如"aa"与“a*a”. 要从i 和 j + 1递归起。
+					return true;                           // 有true则为true.
+				i++;                                           // 例如“aa”与“a*”, i加到2
 			}
-			return helper(s, p, i, j + 2);                                                  // 找到i与j + 2相同的，继续递归。实际上则是继续递归，从新的valid的地方递归。重复了一次为了不越界。
+			return helper(s, p, i, j + 2);              // 如果一直都相同字母但是FALSE，从不同字母和j+2继续递归
 		}
 	}
 }
