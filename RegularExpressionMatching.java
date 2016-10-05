@@ -36,7 +36,17 @@ isMatch("aab", "c*a*b") → true
 http://articles.leetcode.com/regular-expression-matching
 */
 // 补充。“aa, a*a”为true
-
+/*
+第二种方法用DP做。
+if p.charAt(j) == s.charAt(i) || p.charAt(j) == '.'
+	dp[i][j] = dp[i-1][j-1]
+If p.charAt(j) == '*':
+	if p.charAt(j-1) != s.charAt(i)
+		dp[i][j] = dp[i][j-2]  //in this case, a* only counts as empty
+ 	if p.charAt(i-1) == s.charAt(i) || p.charAt(i-1) == '.':
+                dp[i][j] = dp[i-1][j]    //in this case, a* counts as multiple a 
+        	dp[i][j] = dp[i][j-2]   // in this case, a* counts as empty
+*/
 
 public class Solution {
     public boolean isMatch(String s, String p) {
@@ -59,5 +69,31 @@ public class Solution {
 			}
 			return helper(s, p, i, j + 2);              // 如果一直都相同字母但是FALSE，从不同字母和j+2继续递归
 		}
+	}
+	
+	public boolean isMatch2(String s, String p) {
+		int m = s.length();
+		int n = p.length();
+		boolean[][] dp = new boolean[m + 1][n + 1];
+		dp[0][0] = true;
+		for (int i = 1; i <= m; i++)
+			dp[i][0] = false;
+		for (int j = 1; j <= n; j++) {
+			if (j > 1 && p.charAt(j - 1) == '*')
+				dp[0][j] = dp[0][j - 2];
+		}
+		for(int i = 1; i <= m; i++){
+			for (int j = 1; j <= n; j++) {
+				if (s.charAt(i - 1) == p.charAt(j - 1) || p.charAt(j - 1) == '.')
+					dp[i][j] = dp[i - 1][j - 1];
+				else if (p.charAt(j - 1) == '*') {
+					if (s.charAt(i - 1) == p.charAt(j - 2) || p.charAt(j - 2) == '.')
+						dp[i][j] = dp[i - 1][j] || dp[i][j - 2];
+					else
+						dp[i][j] = dp[i][j - 2];
+				}
+			}
+		} 
+		return dp[m][n];
 	}
 }
