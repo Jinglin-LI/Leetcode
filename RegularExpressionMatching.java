@@ -35,6 +35,8 @@ isMatch("aab", "c*a*b") → true
 * 为什么isMatch("aab", "c*a*b") → true? 	c*代表0个c. 在计算理论课程中有提到。
 http://articles.leetcode.com/regular-expression-matching
 */
+// 补充。“aa, a*a”为true
+
 
 public class Solution {
     public boolean isMatch(String s, String p) {
@@ -51,7 +53,7 @@ public class Solution {
 		}
 		else {                                                                             // p.charAt(j + 1) == '*'
 			while (i < s.length() && (p.charAt(j) == '.' || s.charAt(i) == p.charAt(j))) {
-				if (helper(s, p, i, j + 2))		 	// 例如"aa"与“a*a”. 要从i 和 j + 1递归起。
+				if (helper(s, p, i, j + 2))		 	// 例如"aa"与“a*a”. 要从i 和 j + 2递归起。
 					return true;                           // 有true则为true.
 				i++;                                           // 例如“aa”与“a*”, i加到2
 			}
