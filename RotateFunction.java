@@ -50,3 +50,35 @@ public class Solution {
         return max;   
     }
 }
+
+/*
+http://bookshadow.com/weblog/2016/09/11/leetcode-rotate-function/
+假设数组A的长度为5，其旋转函数F的系数向量如下所示：
+0 1 2 3 4
+1 2 3 4 0
+2 3 4 0 1
+3 4 0 1 2
+4 0 1 2 3
+用每一行系数与其上一行做差，差值恰好为sum(A) - size * A[size - x]，其中x为行数
+（因为已经加上了sum, 所以0-4实际上要减去5 * A[size - x]).
+*/
+
+public class RotationFunction {
+	public int maxRotateFunction(int[] A) {
+		int sum = 0;
+		for (int i = 0; i < A.length; i++) {
+			sum += A[i];
+		}
+		int eachLineSum = 0;
+		int len = A.length;
+		for (int i = 0; i < len; i++) {
+			eachLineSum += i * A[i];                  // 第一行的sum. 
+		}
+		int res = eachLineSum;
+		for (int i = len - 1; i >= 0; i--) {        // 从最后一个算起，即size - x. 
+			eachLineSum += sum - len * A[i];
+			res = Math.max(res, eachLineSum);
+		}
+		return res;
+	}
+}
