@@ -50,6 +50,8 @@ public class Solution {
 			else
 				return false;
 			for (int j = 1; j < count; j++) {   // check that the next n bytes start with 10xxxxxx
+				if (i + j >= data.length)		// 为了防止下一步的exception
+					return false;
 				if ((data[i + j] & 192) != 128)   // 192(11000000), 128(10000000)
 					return false;
 			}
