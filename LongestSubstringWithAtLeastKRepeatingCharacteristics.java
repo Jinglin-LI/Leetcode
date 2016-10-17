@@ -20,6 +20,7 @@ The longest substring is "ababb", as 'a' is repeated 2 times and 'b' is repeated
 例如： (ababacb, 3), list中存入-1， 5， 7. 
 然后每一段进行递归寻找最大长度。注意start和end要减去那个断点。例如最后递归时，(start = 0, end = 5), (start = 6, end = 7). 
 */
+// 原先想用两个指针的方法记录，但是（ababacb，3）的例子就错了。
 
 public class Solution {
     public int longestSubstring(String s, int k) {
