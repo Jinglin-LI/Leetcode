@@ -12,27 +12,34 @@ Input: [1, 2, 3, 5]
 Output: false
 Explanation: The array cannot be partitioned into equal sum subsets.
 */
+// previous AC because of the limited case.
+/*
+Use the DP. record the possibility of sum in the index i. For example, dp[3] is true, 
+means there is subset which contains the elements whoes sum is 3. 
+The second for loop is from target to nums[i]. Because of the case: {1,2,5}. when go forward
+Therefore this code is go backwords. dp[i - num] represent the previous sum before adding the current one. 
+For example: 		 {1,2,5}
+		dp index	0 1 2 3 4
+		first dp[]      1 1 0 0 0
+		second dp[]     1 1 1 1 0		res is dp[4], false;
+*/
 
 public class Solution {
     public boolean canPartition(int[] nums) {
         int sum = 0;
-        Arrays.sort(nums);
-        for (int i : nums) 
-            sum += i;
-        if (sum % 2 == 1)
+        for (Integer num : nums) {
+            sum += num;
+        }
+        if ((sum % 2) == 1) {
             return false;
+        }
         int target = sum / 2;
-        return helper(nums, 0, target);
+        boolean[] dp = new boolean[target + 1];
+        dp[0] = true;
+        for (Integer num : nums) {
+            for (int i = target; i >= num; i--) 
+                    dp[i] = dp[i] || dp[i - num];
+        }
+        return dp[target];
     }
-	public boolean helper(int[] nums, int start, int target) {
-		for (int i = start; i < nums.length; i++) {
-			if (nums[i] == target)
-				return true;
-			if (nums[i] > target)
-				return false;
-			if (helper(nums, start + 1, target - nums[i]))
-				return true;
-		}
-		return false;
-	}
 }
