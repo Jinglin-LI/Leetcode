@@ -50,7 +50,7 @@ public class WordLadder {
 					currchar[i] = c;
 					String candidate = new String(currchar);
 	//				System.out.println(candidate);
-					if (candidate == endWord)
+					if (candidate.equals(endWord))		// 注意一定要是equals.
 						return res + 1;
 					if (wordList.contains(candidate)) {
 						q.add(candidate);
