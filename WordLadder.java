@@ -32,40 +32,50 @@ curCount和nextCount记录q中当前和下一个单词的candidate的数量，�
 BFS比DFS效率高，比如111 - 311. 如果DFS, 111 - 112 - 112的所有变形; BFS则111 - 112 - 113 - 121 - 131 - 211 - 311.
 */
 
-public class Solution {
-    public int ladderLength(String beginWord, String endWord, Set<String> wordList) {
-        if(beginWord == null || endWord == null || beginWord.length() == 0 || endWord.length() == 0)
-            return 0;
-        Queue<String> q = new LinkedList<String>();           // 存储candidate的单词
-        q.add(beginWord);
-        int res = 1;
-        int curCount = 1;                                     // 当前单词的数量
-        int nextCount = 0;                                    // 下一个单词的candidate的数量
-        
-        while (!q.isEmpty()) {
-            String candidate = q.poll();
-            curCount--;
-            for(int i = 0; i < candidate.length(); i++) {
-                char[] words = candidate.toCharArray();
-                for (char j = 'a'; j <= 'z'; j++) {           // nit的words[]为ait,bit,cit...
-                    words[i] = j;
-                    String temp = new String(words);
-                    
-                    if (temp.equals(endWord))
-                        return res + 1;                       // 只有当candidate的单词最后能到endWord时，才返回res
-                    if (wordList.contains(temp)) {
-                        q.add(temp);
-                        nextCount++;
-                        wordList.remove(temp);                // 可以从给的dictionary里面删除
-                    }
-                }
-            }
-            if (curCount == 0) {                              // 当前这个单词的数量为零时，向后移动
-                curCount = nextCount;                         // 当前candidate的单词的数量为之前的nextCount
-                nextCount = 0;                                // 下一个candidate的单词的数量变为0
-                res++;
-            }
-        } 
-        return 0;
-    }
+public class WordLadder {
+	public int ladderLength(String beginWord, String endWord, Set<String> wordList) {
+		if (beginWord == null || endWord == null || beginWord.length() == 0 || endWord.length() == 0)
+			return 0;
+		Queue<String> q = new LinkedList<>();
+		q.add(beginWord);
+		int res = 1;
+		int currCount = 1;
+		int nextCount = 0;
+		while (!q.isEmpty()) {
+			String curr = q.poll();
+			currCount--;
+			for (int i = 0; i < curr.length(); i++) {
+				char[] currchar = curr.toCharArray();
+				for (char c = 'a'; c <= 'z'; c++) {
+					currchar[i] = c;
+					String candidate = new String(currchar);
+	//				System.out.println(candidate);
+					if (candidate == endWord)
+						return res + 1;
+					if (wordList.contains(candidate)) {
+						q.add(candidate);
+						wordList.remove(candidate);
+						nextCount++;
+					}
+				}
+			}
+			if (currCount == 0) {
+				res++;
+				currCount = nextCount;
+				nextCount = 0;
+			}
+		}
+		return 0;
+	}
+	public static void main(String[] args) {
+		WordLadder test = new WordLadder();
+		Set<String> wordList = new TreeSet<>();
+		wordList.add("hot");
+		wordList.add("dot");
+		wordList.add("dog");
+		wordList.add("lot");		
+		wordList.add("log");
+		System.out.println(test.ladderLength("hit", "cog", wordList));
+		System.out.println("");
+	}
 }
