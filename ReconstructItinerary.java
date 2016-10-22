@@ -13,39 +13,41 @@ tickets = [["JFK","SFO"],["JFK","ATL"],["SFO","ATL"],["ATL","JFK"],["ATL","SFO"]
 Return ["JFK","ATL","JFK","SFO","ATL","SFO"].
 Another possible reconstruction is ["JFK","SFO","ATL","JFK","ATL","SFO"]. But it is larger in lexical order.
 */
+// 此题要注意，hm中的valuey有可能不在hm中的key中出现（单线飞走了）。所以进行boolean的判断。比如["JFK", "ATL"]["JFK", "SFO"]["SFO" -> "JFK"].
 
 public class Solution {
     public List<String> findItinerary(String[][] tickets) {
         List<String> res = new ArrayList<>();
+        if (tickets == null || tickets.length == 0 || tickets[0].length == 0)
+            return res;
         HashMap<String, List<String>> hm = new HashMap<>();
-        for (String[] t : tickets) {
-            if (!hm.containsKey(t[0]))
-                hm.put(t[0], new ArrayList<String>());
-            hm.get(t[0]).add(t[1]);
+        for (String[] ticket : tickets) {
+            if (!hm.containsKey(ticket[0]))
+                hm.put(ticket[0], new ArrayList<String>());
+            hm.get(ticket[0]).add(ticket[1]);  
         }
         for (List<String> list : hm.values()) {
             Collections.sort(list);
         }
-        if (DFS(res, hm, "JFK", tickets.length + 1))                      // tickets are all used up. It is an itinerary.
-            return res;
+        res.add("JFK");
+        if(DFS(res, "JFK", hm, tickets.length + 1))
+        	return res;
         return res;
     }
-    private boolean DFS(List<String> res, HashMap<String, List<String>> hm, String start, int len) {
-        res.add(start);
-        if (res.size() == len)
-            return true;
-        if (!hm.containsKey(start) || hm.get(start).isEmpty())
-            return false;
-        
-        for (int i = 0; i < hm.get(start).size(); i++) {                  // need remove and add the string in the same index. 
-                String newDest = hm.get(start).remove(i);                 // remove the destination in the hm
-
-                if (DFS(res, hm, newDest, len))
-                    return true;
-                
-                res.remove(res.size() - 1);                               // remove the destination in the res
-                hm.get(start).add(i, newDest);                            // add the destination in the hm at the previous index
-        }
-        return false;
-    } 
+	public boolean DFS(List<String> res, String start, HashMap<String, List<String>> hm, int len) {
+		if (res.size() == len)
+			return true;
+		if (!hm.containsKey(start) || hm.get(start) == null)
+			return false;
+		for (int i = 0; i < hm.get(start).size(); i++) {
+			String temp = hm.get(start).get(i);                             
+			res.add(temp);                                          // res加进去key对应的每一个value
+			hm.get(start).remove(i);                                // 用完则删除
+			if (DFS(res, temp, hm, len))
+				return true;
+			res.remove(res.size() - 1);                             // res删掉不合适的
+			hm.get(start).add(i, temp);                             // 删除完的再加回来。
+		}
+		return false;
+	}
 }
