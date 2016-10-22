@@ -19,6 +19,7 @@ Return:
 [[0, 4], [1, 3], [1, 4], [2, 2], [3, 0], [3, 1], [4, 0]] (positions with parentheses in above matrix).
 */
 // reference : https://discuss.leetcode.com/topic/62379/java-bfs-dfs-from-ocean
+// 此题注意是从边上向内部BFS, boolean[][] p 和 boolean[][] a 即为visited.
 
 public class Solution {
     public List<int[]> pacificAtlantic(int[][] matrix) {
