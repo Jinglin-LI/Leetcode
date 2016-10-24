@@ -65,4 +65,38 @@ public class Solution {
 		}
 		return count == 0;
 	}
+	
+	// 基本方法一样。用hm取代List<List<Integer>>
+	public boolean canFinish3(int numCourses, int[][] prerequisites) {
+        HashMap<Integer, List<Integer>> hm = new HashMap<>();
+        int[] degree = new int[numCourses];
+        for (int[] prerequisite : prerequisites) {
+            if (!hm.containsKey(prerequisite[1])) {
+                hm.put(prerequisite[1], new ArrayList<Integer>());
+            }
+            hm.get(prerequisite[1]).add(prerequisite[0]);
+            degree[prerequisite[0]]++;
+            
+        }
+  //      System.out.println("test4: " + degree[0] + "," + degree[1]);
+        Queue<Integer> q = new LinkedList<>();
+        for (int i = 0; i < numCourses; i++) {
+            if (degree[i] == 0) {
+  //          	System.out.println("test3: i = " + i);
+                q.add(i);
+            }
+        }
+        int count = numCourses;
+        while (!q.isEmpty()) {
+        	count--;
+            int temp = q.poll();
+   //         System.out.println("test2, temp = " + temp);
+            for (int i = 0; hm.containsKey(temp) && i < hm.get(temp).size(); i++) {
+   //         	System.out.println("test, i = " + i);
+                if (--degree[hm.get(temp).get(i)] == 0)
+                    q.add(hm.get(temp).get(i));
+            }
+        }
+        return count == 0;
+    }
 }
