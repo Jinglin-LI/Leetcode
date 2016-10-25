@@ -26,7 +26,7 @@ public class Solution {
             res.add(new ArrayList<Integer> (list));                                                             // New
             return;
         }
-        if (target < 0)
+        if (target < 0)                                 // 此题注意判断,限制条件。否则会无限递归。造成stackoverflow
             return;
         for (int i = start; i < candidates.length; i++) { 
             list.add(candidates[i]);
