@@ -58,14 +58,14 @@ public class PathSumII {
 	
 	// helper2 其实跟helper是一样的。这个版本好理解一些。
 	public void helper2(List<List<Integer>>res, List<Integer>list, TreeNode node, int sum) {
-        list.add(node.val);
-        if (node.left == null && node.right == null && node.val == sum) {
-            res.add(new ArrayList<Integer> (list));
-        }
-        if (node.left != null)
-            helper(res, list, node.left, sum - node.val);
-        if (node.right != null)
-            helper(res, list, node.right, sum - node.val);
-        list.remove(list.size() - 1);
-    }
+        	list.add(node.val);
+        	if (node.left == null && node.right == null && node.val == sum) {
+            		res.add(new ArrayList<Integer> (list));
+        	}
+        	if (node.left != null)
+            	helper(res, list, node.left, sum - node.val);
+        	if (node.right != null)
+            	helper(res, list, node.right, sum - node.val);
+        	list.remove(list.size() - 1);
+    	}
 }
