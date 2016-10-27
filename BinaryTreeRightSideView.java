@@ -32,7 +32,7 @@ public class Solution {
         while (!q.isEmpty()) {
             TreeNode node = q.poll();
             if (node != null) {
-                cur = node.val;
+                cur = node.val;                         // 需要把null之前的node值记住。
                 if (node.left != null)
                     q.add(node.left);
                 if (node.right != null)
@@ -40,7 +40,7 @@ public class Solution {
             }
             else {                                      // when point to the null, store the last element of the last layer, add null
                 res.add(cur);
-                if (q.isEmpty())
+                if (q.isEmpty())                        // 要判断q是否为空。note. 
                     break;
                 q.add(null);
             }
