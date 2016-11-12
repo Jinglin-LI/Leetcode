@@ -11,6 +11,8 @@ Reverse a singly linked list.
  * }
  */
  
+// 非递归
+
 public class Solution {
     public ListNode reverseList(ListNode head) {
         ListNode pre = head;
@@ -30,3 +32,17 @@ public class Solution {
         return cur;
     }
 }
+
+
+/*==========================================================*/	
+// 递归
+	
+    public ListNode reverseList(ListNode head) {
+        if(head==null || head.next==null)
+            return head;
+        ListNode nextNode=head.next;
+        ListNode newHead=reverseList(nextNode);
+        nextNode.next=head;
+        head.next=null;
+        return newHead;
+    }
