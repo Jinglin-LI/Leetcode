@@ -30,7 +30,8 @@ The flattened tree should look like:
  *     TreeNode(int x) { val = x; }
  * }
  */
- 
+
+// not recursive, use stack
 public class Solution {
     public void flatten(TreeNode root) {
         if (root == null)
@@ -51,6 +52,28 @@ public class Solution {
             node = node.right;
         }
     }
+	
+/*==========================================================================================================*/
+// recursive
+	
+public class Solution {
+    private TreeNode prev = null;
+
+    public void flatten(TreeNode root) {
+        if (root == null)
+            return;
+        flatten(root.right);
+        flatten(root.left);
+	    
+        root.right = prev;		// previous is the previous root, the subtree's root
+        root.left = null;
+        prev = root;			
+    }
+}
+	
+/*====================================================================================================*/
+// rightmost
+	
     public void flatten2(TreeNode root) {
 	if (root == null)
 		return;
