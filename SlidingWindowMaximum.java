@@ -35,6 +35,8 @@ Given nums = [1,3,-1,-3,5,3,6,7], and k = 3。
 */ 
 // 也可利用PQ做。PQ存储k个升序排列。每次窗口移动，移除窗口第一个元素。
 
+
+// deque. O(N)
 public class Solution {
     public int[] maxSlidingWindow(int[] nums, int k) {
         if (nums == null || nums.length == 0)
@@ -52,6 +54,10 @@ public class Solution {
         }
         return res;
     }
+
+/*==========================================================================================================*/
+	
+	
     public int[] maxSlidingWindow2(int[] nums, int k) {
 		if (nums == null || nums.length == 0)
 			return new int[0];
