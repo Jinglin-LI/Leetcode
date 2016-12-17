@@ -22,15 +22,31 @@ For example, the lowest common ancestor (LCA) of nodes 2 and 8 is 6. Another exa
  */
  
 public class Solution {
-    public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
-        if (root == null)
-            return null;
-        if (p.val <= root.val && q.val >= root.val || (p.val >= root.val && q.val <= root.val))
-            return root;
-        if (p.val <= root.val && q.val <= root.val)
-            return lowestCommonAncestor(root.left, p, q);
-        if (p.val >= root.val && q.val >= root.val)
-            return lowestCommonAncestor(root.right, p, q);
-        return null;
-    }
+    // recursive 递归方法
+	public TreeNode lowestCommanAncester(TreeNode root, TreeNode p, TreeNode q) {
+		if (root == null || p == null || q == null)
+			return null;
+		if (p.val < root.val && q.val < root.val) {
+			return lowestCommanAncester(root.left, p, q);
+		}
+		else if (p.val > root.val && q.val > root.val) {
+			return lowestCommanAncester(root.right, p, q);
+		}
+		else
+			return root;
+	}
+	
+        /*====================================================================================================*/
+        
+	// iterative 遍历方法
+	public TreeNode lowestCommanAncester2(TreeNode root, TreeNode p, TreeNode q) {
+		while (true) {
+			if (p.val < root.val && q.val < root.val)
+				root = root.left;
+			else if (p.val > root.val && q.val > root.val)
+				root = root.right;
+			else
+				return root;
+		}
+	}
 }
