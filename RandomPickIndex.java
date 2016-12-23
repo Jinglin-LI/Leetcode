@@ -18,6 +18,12 @@ solution.pick(1);
 
 */
 
+
+
+/* 概率解释： 
+The first index has a probability of 1 of being selected. 
+The second has a probability of 1 / 2 of swapping the original and then 1 / 3 and so on and so forth
+*/
 public class Solution {
     public int[] nums;
     public Random random;
