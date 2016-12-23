@@ -5,6 +5,9 @@ Note:
 You are not suppose to use the library's sort function for this problem.
 */
 
+// 方法2和方法3是一样滴，都比方法1要好。
+// Reference: http://www.geeksforgeeks.org/sort-an-array-of-0s-1s-and-2s/
+
 public class Solution {
     public void sortColors(int[] nums) {
         int count0 = 0, count1 = 0;
@@ -26,6 +29,8 @@ public class Solution {
             nums[i] = res[i];
     }
     
+/*=========方法2与方法3是一样滴。=============================================================================*/
+	
     public void sortColors2(int[] nums) {
 		if (nums == null || nums.length <= 1)
 			return;
@@ -46,5 +51,46 @@ public class Solution {
 				i++;
 			}
 		}
+	}
+	
+}
+
+/*=========== 方法3 ============================================================================*/
+
+/* maintain 3 pointers, move mid pointer all the time
+when meet with "Mid", mid++, 
+when "Low", swap(low, mid), low++, mid++
+when "High", swap(mid, high), high--
+*/
+public class SortColors {
+	public void sortColors(int[] a) {
+		int len = a.length;
+		int low = 0;
+		int high = len - 1;
+		int mid = 0;
+		while (mid <= high) {
+			switch(a[mid]) {
+				case 0: {
+					swap(a, low, mid);
+					low++;
+					mid++;
+					break;
+				}
+				case 1: {
+					mid++;
+					break;
+				}
+				case 2: {
+					swap(a, mid, high);
+					high--;
+					break;
+				}
+			}
+		}
+	}
+	public void swap(int[] a, int low, int mid) {
+		int temp = a[low];
+		a[low] = a[mid];
+		a[mid] = temp;
 	}
 }
