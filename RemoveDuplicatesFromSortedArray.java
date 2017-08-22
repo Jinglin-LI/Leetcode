@@ -7,13 +7,29 @@ Your function should return length = 2, with the first two elements of nums bein
 */
 
 public class Solution {
+    
+    // two pointers
+    public int removeDuplicates(int[] nums) {
+        if (nums == null || nums.length == 0)
+        	return 0;
+        int i = 0;
+        for(int j = 1; j < nums.length; j++) {
+            if(nums[i] != nums[j]) {
+                nums[++i] = nums[j];
+            }
+        }
+        return i + 1;
+    }
+    
+    /**************************************************************************************/
+    
     public int removeDuplicates(int[] nums) {
         HashMap<Integer, Integer> hm = new HashMap<>();
         int count = 0;
         
         for (int i = 0; i < nums.length; i++) {
             if (!hm.containsKey(nums[i])) {
-                hm.put(nums[i], 1);
+                hm.put(nums[i], 1);                                    // we can use HashSet instead
                 nums[count] = nums[i];
                 count++;
             }
