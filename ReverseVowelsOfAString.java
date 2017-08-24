@@ -14,7 +14,7 @@ public class ReverseVowelsOfAString {
 				i++;
 			while (i < j && !isVowels(c[j]))
 				j--;
-			if (i < j) {
+			if (i < j) {				// 加不加condition都可
 				char temp = c[i];
 				c[i] = c[j];
 				c[j] = temp;
@@ -26,7 +26,7 @@ public class ReverseVowelsOfAString {
 	//	for (char each : c)
 	//		sb.append(each);
 	//	return sb.toString();
-		return new String(c);
+		return new String(c);				 // 或者return String.valueOf(c);
 		
 	}
 	private boolean isVowels(char a) {
