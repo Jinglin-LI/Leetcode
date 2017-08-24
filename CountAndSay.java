@@ -11,6 +11,35 @@ Note: The sequence of integers will be represented as a string.
 */
 
 public class Solution {
+    
+    public String countAndSay(int n) {
+        if (n == 1)
+            return "1";
+        else if (n == 2) {
+            return "11";
+        }
+        else {
+            return helper(countAndSay(n - 1));
+        }
+    }
+    public String helper(String string) {
+        StringBuilder sb = new StringBuilder();
+        int i = 0;
+        while (i < string.length()) {
+            int count = 1;
+            while (i + 1 < string.length() && string.charAt(i) == string.charAt(i + 1)) {
+                i++;
+                count++;
+            }
+            sb.append(count);
+            sb.append(string.charAt(i));
+            i++;
+        }
+        return sb.toString();
+    }
+    
+    /*******************************一样的，上面的更简洁***********************************************************/
+    
     public String countAndSay(int n) {
         if (n == 1)
             return "1";
