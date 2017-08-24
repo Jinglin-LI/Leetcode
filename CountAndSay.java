@@ -31,7 +31,7 @@ public class Solution {
                 i++;
                 count++;
             }
-            sb.append(count);
+            sb.append(count); // 注意这点。sb.append(int). 如果是count + '0' 则为i.e. 10, 20, or 50. 所以用string + ""代替StringBuilder更好
             sb.append(string.charAt(i));
             i++;
         }
