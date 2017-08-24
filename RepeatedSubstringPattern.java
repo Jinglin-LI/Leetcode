@@ -21,6 +21,33 @@ Explanation: It's the substring "abc" four times. (And the substring "abcabc" tw
 // 此题难点是不知道重复字符串长度。所以用helper来传入重复字符串长度。
 
 public class Solution {
+    
+    public boolean repeatedSubstringPattern(String s) {
+        int len = s.length();
+        int i = len / 2;
+        while (i > 0) {
+            String str = s.substring(0, i);
+            for (int j = i; j < s.length() - i + 1; j = j + i) {
+                String str2 = s.substring(j, j + i);
+                if (!str.equals(str2)) {
+                    break;
+                }
+                else {
+                    if (j + i == s.length()) {
+                        return true;
+                    }
+                }
+            }
+            i--;
+            while (i > 0 && s.length() % i != 0) {
+                i--;
+            }
+        }
+        return false;
+    }
+    
+    /*******************************************************************************/
+    
     public boolean repeatedSubstringPattern(String str) {
         for (int i = 1; i <= str.length() / 2; i++) {
             if (helper(str, i))
