@@ -53,7 +53,7 @@ public class Solution {
 			return;
 		if (board[i][j] == 'O')
 			board[i][j] = '~';                       // 把通过boundary的‘O’能通到的‘O’都改成‘~’来标记
-		if (i > 1 && board[i - 1][j] == 'O')
+		if (i > 1 && board[i - 1][j] == 'O')	         // 把visited过的都改成了‘~’，即提供了判断是否visited.
 			dfs(board, i - 1, j);
 		if (i < board.length - 2 && board[i + 1][j] == 'O')
 			dfs(board, i + 1, j);
