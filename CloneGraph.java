@@ -28,6 +28,32 @@ Visually, the graph looks like the following:
 // HashMap<original node, copy node>, return copy node. DFS(hm, original node) in order to deal with node's neighbors.
 
 public class Solution {
+       
+    // BFS 用Q 和 hm (即visited)
+    public UndirectedGraphNode cloneGraph(UndirectedGraphNode node) {
+        if (node == null)
+            return null;
+        Queue<UndirectedGraphNode> q = new LinkedList<>();
+        q.offer(node);
+        Map<UndirectedGraphNode, UndirectedGraphNode> hm = new HashMap<>();
+        hm.put(node, new UndirectedGraphNode(node.label));
+        
+        while (!q.isEmpty()) {
+            UndirectedGraphNode temp = q.poll();
+            for (UndirectedGraphNode neighbor : temp.neighbors) {
+                if (!hm.containsKey(neighbor)) {
+                    hm.put(neighbor, new UndirectedGraphNode(neighbor.label));
+                    q.offer(neighbor);
+                }
+                hm.get(temp).neighbors.add(hm.get(neighbor));
+            }
+        }
+        return hm.get(node);
+    }
+       
+    /****************************************************************************************/
+       
+    // DFS 
     public UndirectedGraphNode cloneGraph(UndirectedGraphNode node) {
         if (node == null)
             return null;
