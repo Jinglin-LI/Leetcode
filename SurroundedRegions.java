@@ -14,6 +14,58 @@ X O X X
 */
 
 public class Solution {
+    
+    // DFS. 把boundary的'O'通过DFS（与boundary的‘O’相连的‘O’）都改成‘~’。剩下的‘O’就应该改成‘X’就对了。
+    public void solve(char[][] board) {
+		if (board == null || board.length == 0 || board[0].length == 0)
+			return;
+		int m = board.length;
+		int n = board[0].length;
+		for (int i = 0; i < m; i++) {               // 这两个for loop, 把boundary的‘O’找出来DFS
+			if (board[i][0] == 'O') {
+				dfs(board, i, 0);
+			}
+			if (board[i][n - 1] == 'O') {
+				dfs(board, i, n - 1);
+			}
+		}
+		for (int j = 0; j < n; j++) {
+			if (board[0][j] == 'O') {
+				dfs(board, 0, j);
+			}
+			if (board[m - 1][j] == 'O') {
+				dfs(board, m - 1, j);
+			}
+		}
+		for (int i = 0; i < m; i++) {               // 这个for loop 把boundary的‘O’改回来，其他的‘O’变成‘X’
+			for (int j = 0; j < n; j++) {
+				if (board[i][j] == 'O') {
+					board[i][j] = 'X';
+				}
+				else if (board[i][j] == '~') {
+					board[i][j] = 'O';
+				}
+			}
+		}
+	}
+	private void dfs(char[][] board, int i, int j) {
+		if (i < 0 || i > board.length - 1 || j < 0 || j > board[0].length - 1)
+			return;
+		if (board[i][j] == 'O')
+			board[i][j] = '~';                       // 把通过boundary的‘O’能通到的‘O’都改成‘~’来标记
+		if (i > 1 && board[i - 1][j] == 'O')
+			dfs(board, i - 1, j);
+		if (i < board.length - 2 && board[i + 1][j] == 'O')
+			dfs(board, i + 1, j);
+		if (j > 1 && board[i][j - 1] == 'O')
+			dfs(board, i, j - 1);
+		if (j < board[i].length - 2 && board[i][j + 1] == 'O')
+			dfs(board, i, j + 1);
+	}
+    
+    /***************************************************************************************/
+    
+    // BFS
     public void solve(char[][] board) {
         if (board == null || board.length == 0 || board[0].length == 0)
             return;
