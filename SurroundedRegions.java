@@ -69,6 +69,61 @@ public class Solution {
     public void solve(char[][] board) {
         if (board == null || board.length == 0 || board[0].length == 0)
             return;
+        int m = board.length;
+		int n = board[0].length;
+		Queue<Point> q = new LinkedList<>();
+		
+		for (int i = 0; i < m; i++) {
+			if (board[i][0] == 'O') {
+				board[i][0] = '~';
+				q.offer(new Point(i, 0));
+			}
+			if (board[i][n - 1] == 'O') {
+				board[i][n - 1] = '~';
+				q.offer(new Point(i, n - 1));
+			}
+		}
+		for (int j = 0; j < n; j++) {
+			if (board[0][j] == 'O') {
+				board[0][j] = '~';
+				q.offer(new Point(0, j));
+			}
+			if (board[m - 1][j] == 'O') {
+				board[m - 1][j] = '~';
+				q.offer(new Point(m - 1, j));
+			}
+		}
+		
+		int[][] dir = {{1,0}, {-1,0}, {0,1}, {0,-1}};
+		while (!q.isEmpty()) {
+			Point p = q.poll();
+			int x = p.x;
+			int y = p.y;
+			for (int k = 0; k < 4; k++) {
+				int newX = x + dir[k][0];
+				int newY = y + dir[k][1];
+				if (newX >= 0 && newX < m && newY >= 0 && newY < n && board[newX][newY] == 'O') {
+					board[newX][newY] = '~';
+					q.add(new Point(newX, newY));
+				}
+			}
+		}
+		
+		for (int i = 0; i < m; i++) {
+			for (int j = 0; j < n; j++) {
+				if (board[i][j] == 'O')
+					board[i][j] = 'X';
+				if (board[i][j] == '~') 
+					board[i][j] = 'O';
+			}
+		}
+    }
+	
+/**********************************************************************************************/
+    // dfs 2
+    public void solve(char[][] board) {
+        if (board == null || board.length == 0 || board[0].length == 0)
+            return;
         Queue<Integer> q = new LinkedList<>();
         int m = board.length;
         int n = board[0].length;
