@@ -78,11 +78,9 @@ public class Solution {
             degree[prerequisite[0]]++;
             
         }
-  //      System.out.println("test4: " + degree[0] + "," + degree[1]);
         Queue<Integer> q = new LinkedList<>();
         for (int i = 0; i < numCourses; i++) {
             if (degree[i] == 0) {
-  //          	System.out.println("test3: i = " + i);
                 q.add(i);
             }
         }
@@ -90,11 +88,20 @@ public class Solution {
         while (!q.isEmpty()) {
         	count--;
             int temp = q.poll();
-   //         System.out.println("test2, temp = " + temp);
+		
+	    /* 好奇怪的用法...
             for (int i = 0; hm.containsKey(temp) && i < hm.get(temp).size(); i++) {
-   //         	System.out.println("test, i = " + i);
                 if (--degree[hm.get(temp).get(i)] == 0)
                     q.add(hm.get(temp).get(i));
+            }
+	    */
+
+	    if (hm.get(temp) != null) {              // 为了防止空指针
+                for (Integer neighbor : hm.get(temp)) {
+                    if (--degree[neighbor] == 0) {
+                        q.add(neighbor);
+                    }
+                }
             }
         }
         return count == 0;
