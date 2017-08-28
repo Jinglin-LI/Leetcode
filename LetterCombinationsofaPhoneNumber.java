@@ -27,15 +27,15 @@ public class Solution {
         return res;
     }
     
-    private void helper(String digits, List<String> res, String str, HashMap<Integer, String> hm, int index) {
-        if (digits.length() == str.length())
+    private void helper(List<String> res, Map<Integer, String> hm, String digits, String str, int index) {
+        if (str.length() == digits.length()) {
             res.add(str);
-        if (index < digits.length()) {
-            int num = digits.charAt(index) - '0';
-            for (int i = 0; i < hm.get(num).length(); i++) {
-                String str_new = str + hm.get(num).charAt(i);
-                helper(digits, res, str_new, hm, index + 1);
-            }
+            return;
+        }
+        int target = digits.charAt(index) - '0';
+        for (int i = 0; i < hm.get(target).length(); i++) {
+            String newStr = str + hm.get(target).charAt(i);
+            helper(res, hm, digits, newStr, index + 1);
         }
     }
 }
