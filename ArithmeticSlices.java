@@ -41,6 +41,35 @@ return: 3, for 3 arithmetic slices in A: [1, 2, 3], [2, 3, 4] and [1, 2, 3, 4] i
 */
 
 public class Solution {
+        
+        // 思想是，连续着几个diff一样的，用n*(n - 1) / 2 的公式算。之后diff变化的，再另加上。
+        public int numberOfArithmeticSlices(int[] A) {
+        if (A == null || A.length <= 2)
+			return 0;
+		int res = 0;
+		for (int i = 2; i < A.length; i++) {
+			if (A[i] - A[i - 1] == A[i - 1] - A[i - 2]) {
+				int dif = A[i] - A[i - 1];
+				int begin = i - 2;
+				i++;
+				int end = i;
+				
+				while (i < A.length && A[i] - A[i - 1] == dif) {
+					i++;
+				}
+				end = i;
+				res += helper(end - begin);
+			}
+		}
+		return res;
+	}
+	private int helper(int n) {
+		return (n - 1) * (n - 2) / 2;
+    }
+        
+        /************************************************************************************/
+        
+        // DP
     public int numberOfArithmeticSlices(int[] A) {
     	int res = 0;
     	int[] dp = new int[A.length];
