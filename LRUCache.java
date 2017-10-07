@@ -5,7 +5,9 @@ get(key) - Get the value (will always be positive) of the key if the key exists 
 set(key, value) - Set or insert the value if the key is not already present. 
 When the cache reached its capacity, it should invalidate the least recently used item before inserting a new item.
 */
-// 利用hashmapd存储key和value。用doulblyLinkedList数据结构
+// 利用hashmap存储 Integer, Node。用doulblyLinkedList数据结构
+// 用双向链表。此题头与尾概念与一般想法。tail <-> 1 <-> 2 <-> 3 <-> head
+// Node 结构是（key, value）, 与set(key, value)对应。
 
 public class LRUCache {
 	
