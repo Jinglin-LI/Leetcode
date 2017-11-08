@@ -35,6 +35,38 @@ public class LongestSubstringWithoutRepeatingCharacters {
 		return res;
 	}
 	
+	/***********************************************************************************/
+	// 同上，要简单一点
+	class Solution {
+    public int lengthOfLongestSubstring(String s) {
+        if (s == null || s.length() == 0) {
+            return 0;
+        }
+        int res = 0;
+        
+        HashSet<Character> hs = new HashSet<>();
+        
+        int i = 0;
+        int j = i;
+        while (j < s.length()) {
+            
+            if (!hs.contains(s.charAt(j))) {
+                hs.add(s.charAt(j));
+                j++;
+                res = Math.max(res, j - i);
+            }
+            else {
+                hs.remove(s.charAt(i));
+                i++;
+            }
+            
+        }
+        return res;
+    }
+}
+	
+	/*******************************************************************************/
+	
 	// Rank 3/3		hm.clear() always clear and put, not good. 
 	public int lengthOfLongestSubstring2(String s) {
 		if (s == null || s.length() == 0)
