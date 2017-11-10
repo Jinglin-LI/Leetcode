@@ -29,6 +29,48 @@ After calling your function, the tree should look like:
 // 要确定好root的右孩子的next结点，然后处理左孩子。
 // 然后从右向左依次递归处理右孩子，左孩子。
  
+/**
+ * Definition for binary tree with next pointer.
+ * public class TreeLinkNode {
+ *     int val;
+ *     TreeLinkNode left, right, next;
+ *     TreeLinkNode(int x) { val = x; }
+ * }
+ */
+public class Solution {
+    public void connect(TreeLinkNode root) {
+        if (root == null) {
+            return;
+        }
+        Queue<TreeLinkNode> q = new LinkedList<>();
+        q.add(root);
+        while (!q.isEmpty()) {
+            int size = q.size();
+            TreeLinkNode first = q.poll();
+            if (first.left != null) {
+                    q.add(first.left);
+                }
+                if (first.right != null) {
+                    q.add(first.right);
+                }
+            for (int i = 1; i < size; i++) {
+                TreeLinkNode temp = q.poll();
+                first.next = temp;
+                first = first.next;
+                
+                if (temp.left != null) {
+                    q.add(temp.left);
+                }
+                if (temp.right != null) {
+                    q.add(temp.right);
+                }
+            }
+            first.next = null;
+        }
+    }
+}
+
+/**************************************************************************************************/
 public class Solution {
     public void connect(TreeLinkNode root) {
         if(root == null)
