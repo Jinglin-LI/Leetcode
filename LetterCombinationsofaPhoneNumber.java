@@ -38,4 +38,19 @@ public class Solution {
             helper(res, hm, digits, newStr, index + 1);
         }
     }
+    
+    // Another method with two for-loop
+    private void helper(List<String> res, String str, HashMap<Integer, String> hm, String digits, int start) {
+        if (digits.length() == str.length()) {
+            res.add(str);
+            return;
+        }
+        for (int i = start; i < digits.length(); i++) {
+            String temp = hm.get(digits.charAt(i) - '0');
+            for (int j = 0; j < temp.length(); j++) {
+                String newStr = str + temp.charAt(j);
+                helper(res, newStr, hm, digits, i + 1);
+            }
+        }
+    }
 }
