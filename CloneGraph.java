@@ -36,13 +36,13 @@ public class Solution {
         Queue<UndirectedGraphNode> q = new LinkedList<>();
         q.offer(node);
         Map<UndirectedGraphNode, UndirectedGraphNode> hm = new HashMap<>();
-        hm.put(node, new UndirectedGraphNode(node.label));
+        hm.put(node, new UndirectedGraphNode(node.label, new ArrayList<UndirectedGraphNode>())); // note the init empty list
         
         while (!q.isEmpty()) {
             UndirectedGraphNode temp = q.poll();
             for (UndirectedGraphNode neighbor : temp.neighbors) {
                 if (!hm.containsKey(neighbor)) {
-                    hm.put(neighbor, new UndirectedGraphNode(neighbor.label));
+                    hm.put(neighbor, new UndirectedGraphNode(neighbor.label, new ArrayList<UndirectedGraphNode>()));
                     q.offer(neighbor);
                 }
                 hm.get(temp).neighbors.add(hm.get(neighbor));
@@ -58,7 +58,7 @@ public class Solution {
         if (node == null)
             return null;
         HashMap<UndirectedGraphNode, UndirectedGraphNode> hm = new HashMap<>();
-        UndirectedGraphNode cloneNode = new UndirectedGraphNode(node.label);
+        UndirectedGraphNode cloneNode = new UndirectedGraphNode(node.label, new ArrayList<UndirectedGraphNode>()); // note the init with empty list
         hm.put(node, cloneNode);
         DFS(hm, node);
         return cloneNode;
@@ -68,7 +68,7 @@ public class Solution {
             return;
         for (UndirectedGraphNode nodeNeighbor : node.neighbors) {
             if (!hm.containsKey(nodeNeighbor)) {
-                UndirectedGraphNode newNeighbor = new UndirectedGraphNode(nodeNeighbor.label);
+                UndirectedGraphNode newNeighbor = new UndirectedGraphNode(nodeNeighbor.label, new ArrayList<UndirectedGraphNode>());
                 hm.put(nodeNeighbor, newNeighbor);
                 DFS(hm, nodeNeighbor);
             }
