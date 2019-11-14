@@ -50,4 +50,27 @@ public class Solution {
             return false;
         return (t1.val == t2.val) && isMirror(t1.right, t2.left) && isMirror(t1.left, t2.right);
     }
+    
+    // Iterative
+    public boolean isSymmetric(TreeNode root) {
+        if (root == null) {
+            return true;
+        }
+        Queue<TreeNode> q = new LinkedList<>();
+        q.add(root);
+        q.add(root);
+
+        while (!q.isEmpty()) {
+            TreeNode node1 = q.poll();
+            TreeNode node2 = q.poll();
+            if (node1 == null && node2 == null) continue;               // note here
+            if (node1 == null || node2 == null) return false;
+            if (node1.val != node2.val) return false;
+            q.add(node1.left);
+            q.add(node2.right);
+            q.add(node1.right);
+            q.add(node2.left);
+        }
+        return true;
+    }
 }
