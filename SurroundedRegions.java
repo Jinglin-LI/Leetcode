@@ -120,7 +120,7 @@ public class Solution {
     }
 	
 /**********************************************************************************************/
-    // dfs 2
+    // bfs 2
     public void solve(char[][] board) {
         if (board == null || board.length == 0 || board[0].length == 0)
             return;
