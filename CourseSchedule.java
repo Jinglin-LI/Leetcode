@@ -39,6 +39,44 @@ public class Solution {
         status[index] = 2;
         return true;
     }
+	
+	// DFS2, Find circle， visited控制是否有circle
+	public boolean canFinish(int numCourses, int[][] prerequisites) {
+        List[] graph = new ArrayList[numCourses];
+        for (int i = 0; i < numCourses; i++) {
+            graph[i] = new ArrayList();
+        }
+        boolean[] visited = new boolean[numCourses];
+        for (int i = 0; i < prerequisites.length; i++) {
+            graph[prerequisites[i][1]].add(prerequisites[i][0]);
+        }
+        for (int i = 0; i < numCourses; i++) {
+            if (!dfs(graph, visited, i)) {
+                return false;
+            }
+        }
+        return true;
+    } 
+    private boolean dfs(List[] graph, boolean[] visited, int course) {
+        if (visited[course]) {
+            return false;
+        } else {
+            visited[course] = true;
+        }
+        // for (int i = 0; i < graph[course].size(); i++) {
+        //     if (!dfs(graph, visited, (int)graph[course].get(i))) {
+        //         return false;
+        //     }
+        // }
+        for (Object i : graph[course]) {
+            if (!dfs(graph, visited, (int)i)) {
+                return false;
+            }
+        }
+        visited[course] = false;
+        return true;
+    }
+	// 入度
     public boolean canFinish2(int numCourses, int[][] prerequisites) {
 		List<List<Integer>> posts = new ArrayList<>();
 		for (int i = 0; i < numCourses; i++) {
