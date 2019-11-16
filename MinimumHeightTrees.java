@@ -84,4 +84,51 @@ public class Solution {
         }
         return leaf;
     }
+        
+    // find the size of the q for each time, create a new res, return the last one. 这道题注意，int[][] 给出的是edge， 并不是prerequisite, 所以是无向图。要有两个degree， 两个hm. 
+    public List<Integer> findMinHeightTrees(int n, int[][] edges) {
+        List<Integer> res = new ArrayList<>();
+        List<List<Integer>> list = new ArrayList<>();
+        for (int i = 0; i < n; i++) {
+            list.add(new ArrayList<>());
+        }
+        if (n <= 1) {
+            res.add(0);
+            return res;
+        }
+        if (n <= 0 || edges == null || edges.length == 0 || edges[0].length == 0) {
+            return res;
+        }
+        int[] degree = new int[n];
+
+        for (int[] edge : edges) {
+            list.get(edge[1]).add(edge[0]);
+            list.get(edge[0]).add(edge[1]);
+            degree[edge[0]]++;
+            degree[edge[1]]++;
+        }
+        Queue<Integer> q = new LinkedList<>();
+        for (int i = 0; i < degree.length; i++) {
+            if (degree[i] == 1) {
+                q.add(i);
+            }
+        }
+        while (!q.isEmpty()) {
+            int size = q.size();
+            res = new ArrayList<>();
+            for (int i = 0; i < size; i++) {
+                int temp = q.poll();
+                res.add(temp);
+                if (list.get(temp) != null) {
+                    for (int each : list.get(temp)) {
+                        degree[each]--;
+                        if (degree[each] == 1) {
+                            q.add(each);
+                        }
+                    }
+                }
+            }   
+        }
+        return res;
+    }
 }
